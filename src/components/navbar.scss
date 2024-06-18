@@ -1,32 +1,73 @@
-$grey-color: #282A36;
-$green-color: #50FA7B;
-$red-color: #FF5555;
+$bar-color: #333333;
+$bar-color-two: black;
+$primary-text-color: #FFFFFF;
+$highlight-color: #40CCC1;
 $font-family-inter: 'Inter', sans-serif;
 
+
 .navbar {
-  background-color: $grey-color;
+  background: linear-gradient(to right, $bar-color, $bar-color-two);
   padding: 15px 0;
   font-family: $font-family-inter;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
 
 .navbar-brand {
     font-size: 24px;
-    color: $green-color;
+    color: $primary-text-color;
     transition: color 0.3s ease;
 }
 
 .navbar-brand:hover {
-    color: $red-color;
+    color: $highlight-color;
 }
 
 .navbar-toggler {
     display: none;
     margin-left: auto;
-    color: $red-color;
+    color: $highlight-color;
 
     &:focus,
     &:active {
       outline: none;
       box-shadow: none;
+    }
+
+ .navbar-toggler-icon {
+      width: 30px;
+      height: 2px;
+      background-color: $primary-text-color;
+      border-radius: 2px;
+      margin: 8px 0;
+      transform-origin: 4px 50%;
+
+      &::before,
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: inherit;
+        border-radius: 2px;
+        transition: transform 0.25s ease-in-out;
+      }
+
+      &::before {
+        transform: translateY(-8px);
+      }
+
+      &::after {
+        transform: translateY(8px);
+      }
+
+      &:hover::before {
+        transform: translateY(0) rotate(45deg);
+      }
+
+      &:hover::after {
+        transform: translateY(0) rotate(-45deg);
+      }
     }
 }
 
@@ -41,43 +82,44 @@ $font-family-inter: 'Inter', sans-serif;
         margin-right: 15px;
 
         a.nav-link {
-          color: $green-color;
+          color: $primary-text-color;
           text-decoration: none;
           transition: color 0.3s ease;
 
           &:hover {
-            color: $red-color;
+            color: $highlight-color;
           }
 
           &.active {
-            color: $grey-color;
+            color: $bar-color;
           }
         }
       }
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 576px) {
 .navbar {
-    flex-direction: column;
-
- .navbar-brand {
-      margin-bottom: 10px;
-    }
-
- .navbar-toggler {
-      display: block;
-
-      &:focus,
-      &:active {
-        outline: none;
-        box-shadow: none;
-      }
-    }
-
- .navbar-collapse {
-      flex-direction: column;
-      width: 100%;
-    }
-  }
-}}
+     flex-direction: column;
+ 
+.navbar-brand {
+       margin-bottom: 10px;
+     }
+ 
+.navbar-toggler {
+       display: block!important;
+ 
+       &:focus,
+       &:active {
+         outline: none;
+         box-shadow: none;
+       }
+     }
+ 
+.navbar-collapse {
+       flex-direction: column;
+       width: 100%;
+     }
+   }
+}
+}
