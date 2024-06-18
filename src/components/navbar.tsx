@@ -1,33 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion'; // Import motion from Framer Motion
+import './navbar.scss';
 
 const Navbar: React.FC = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" data-bs-theme="dark">
+        <nav className="navbar navbar-expand-lg fixed-top">
             <div className="container-fluid">
-                <a className="navbar-brand" href="#">Arthur Lin</a>
+                <motion.a className="navbar-brand" href="#" initial={{ x: -100, opacity: 0, scale: 0.95 }} animate={{ x: 0, opacity: 1, scale: 1 }} transition={{ duration: 0.5, yoyo: Infinity, repeatDelay: 0.5 }}>Arthur Lin</motion.a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <motion.div className="collapse navbar-collapse justify-content-end" id="navbarNav" initial={{ x: -100, opacity: 0, scale: 0.95 }} animate={{ x: 0, opacity: 1, scale: 1 }} transition={{ duration: 0.5, yoyo: Infinity, repeatDelay: 0.5 }}>
                     <ul className="navbar-nav">
-                        <li className="nav-item">
+                        <motion.li className="nav-item" initial={{ x: -100, opacity: 0, scale: 0.95 }} animate={{ x: 0, opacity: 1, scale: 1 }} transition={{ duration: 0.3, yoyo: Infinity, repeatDelay: 0.3 }} whileHover={{ scale: 1.05 }}>
                             <Link className="nav-link" to="/">Home</Link>
-                        </li>
-                        <li className="nav-item">
+                        </motion.li>
+                        <motion.li className="nav-item" initial={{ x: -100, opacity: 0, scale: 0.95 }} animate={{ x: 0, opacity: 1, scale: 1 }} transition={{ duration: 0.3, yoyo: Infinity, repeatDelay: 0.3 }} whileHover={{ scale: 1.05 }}>
                             <Link className="nav-link" to="/about">About</Link>
-                        </li>
-                        <li className="nav-item">
+                        </motion.li>
+                        <motion.li className="nav-item" initial={{ x: -100, opacity: 0, scale: 0.95 }} animate={{ x: 0, opacity: 1, scale: 1 }} transition={{ duration: 0.3, yoyo: Infinity, repeatDelay: 0.3 }} whileHover={{ scale: 1.05 }}>
                             <Link className="nav-link" to="/projects">Projects</Link>
-                        </li>
-                        <li className="nav-item">
+                        </motion.li>
+                        <motion.li className="nav-item" initial={{ x: -100, opacity: 0, scale: 0.95 }} animate={{ x: 0, opacity: 1, scale: 1 }} transition={{ duration: 0.3, yoyo: Infinity, repeatDelay: 0.3 }} whileHover={{ scale: 1.05 }}>
                             <Link className="nav-link" to="/skills">Skills</Link>
-                        </li>
-                        <li className="nav-item">
+                        </motion.li>
+                        <motion.li className="nav-item" initial={{ x: -100, opacity: 0, scale: 0.95 }} animate={{ x: 0, opacity: 1, scale: 1 }} transition={{ duration: 0.3, yoyo: Infinity, repeatDelay: 0.3 }} whileHover={{ scale: 1.05 }}>
                             <Link className="nav-link" to="/contact">Contact</Link>
-                        </li>
+                        </motion.li>
                     </ul>
-                </div>
+                </motion.div>
             </div>
         </nav>
     );
