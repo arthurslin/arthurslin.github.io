@@ -1,28 +1,36 @@
-import React, { useState } from 'react';
-import './navbar.css';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-interface NavBarProps {}
-
-const NavBar: React.FC<NavBarProps> = () => {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
-  const navItems = ['Contact', 'Projects', 'Skills', 'About'];
-
-  return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="#">AL</a>
-        <ul className="navbar-nav ms-auto">
-          {navItems.map((item, index) => (
-            <li key={index} className={`nav-item ${selectedIndex === index ? 'active' : ''}`}>
-              <a className="nav-link" href="#" onClick={() => setSelectedIndex(index)}>
-                {item}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
-  );
+const Navbar: React.FC = () => {
+    return (
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" data-bs-theme="dark">
+            <div className="container-fluid">
+                <a className="navbar-brand" href="#">Arthur Lin</a>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/">Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/about">About</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/projects">Projects</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/skills">Skills</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/contact">Contact</Link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    );
 };
 
-export default NavBar;
+export default Navbar;
