@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-
+import "./Hero.scss"
 const Hero = () => {
     return (
         <div className="hero-section vh-100 d-flex align-items-center justify-content-center text-center">
@@ -16,8 +16,8 @@ const Hero = () => {
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column align-items-start justify-content-center">
-                        <h1 className="hero-title mb-3">Welcome to My Portfolio</h1>
-                        <p className="hero-subtitle">Exploring the world of web development.</p>
+                        <h1 className="hero-title mb-3">Welcome to My Portfolio!</h1>
+                        <p className="hero-subtitle">UCSC Computer Science: Game Design B.S. Graduate.</p>
                     </div>
                 </div>
             </div>

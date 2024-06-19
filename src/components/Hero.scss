@@ -6,20 +6,18 @@ $font-family-inter: "Inter", sans-serif;
 
 .hero-section {
     padding-top: 60px;
-    background-color: $highlight-color;
+    background-color: $bar-color;
     text-align: center;
     color: $primary-text-color;
 
-   .image-container {
-        width: 100px; // Controlled width
-        height: 100px; // Controlled height
-        overflow: hidden; // Prevents the image from overflowing the container
-        border-radius: 50%; // Maintains the circular shape
+   .profile-image {
+        width: 80%;
+        height: 100%;
+        object-fit: cover; 
 
-       .profile-image {
-            width: 100%; // Makes the image fill the container
-            height: 100%; // Makes the image fill the container
-            object-fit: cover; // Ensures the image covers the area without stretching
+        @media (max-width: 768px) { 
+            width: 50%;
+            height: auto;
         }
     }
 
