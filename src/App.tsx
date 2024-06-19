@@ -1,11 +1,15 @@
 import Navbar from "./components/Header";
-import React from "react";
+import Hero from "./components/Hero";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <Router>
-      <Navbar /> {/* Navbar component will still render */}
+      <Navbar />
+      <Hero/>
+      
+      
+       {/* Navbar component will still render */}
       {/* Commenting out the Routes for now */}
       {/* <Routes>
                 <Route path="/" element={<Home />} />
