@@ -5,28 +5,28 @@ $highlight-color: #40ccc1;
 $font-family-inter: "Inter", sans-serif;
 
 .hero-section {
-    padding-top: 60px;
-    background-color: $bar-color;
-    text-align: center;
-    color: $primary-text-color;
+  padding-top: 60px;
+  background-color: $bar-color;
+  text-align: center;
+  color: $primary-text-color;
 
-   .profile-image {
-        width: 60%;
-        height: 100%;
-        object-fit: cover; 
+  .profile-image {
+    width: 60%;
+    height: 100%;
+    object-fit: cover;
 
-        @media (max-width: 768px) { 
-            width: 50%;
-            height: auto;
-        }
+    @media (max-width: 768px) {
+      width: 50%;
+      height: auto;
     }
+  }
 
-   .hero-title {
-        font-size: 48px;
-        margin-bottom: 20px;
-    }
+  .hero-title {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
 
-   .hero-subtitle {
-        font-size: 24px;
-    }
+  .hero-subtitle {
+    font-size: 24px;
+  }
 }

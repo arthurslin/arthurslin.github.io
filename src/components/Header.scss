@@ -12,15 +12,21 @@ $font-family-inter: "Inter", sans-serif;
   position: relative;
   z-index: 1;
 
-.navbar-brand {
+  .navbar-brand {
     font-size: 24px;
     color: $primary-text-color;
-    transition: color 1s ease, text-shadow 1s ease;
+    transition:
+      color 1s ease,
+      text-shadow 1s ease;
     margin-left: 20px;
 
     &:hover {
       color: $primary-text-color;
-      text-shadow: 0 0 10px $highlight-color, 0 0 20px $highlight-color, 0 0 30px $highlight-color, 0 0 40px $highlight-color;
+      text-shadow:
+        0 0 10px $highlight-color,
+        0 0 20px $highlight-color,
+        0 0 30px $highlight-color,
+        0 0 40px $highlight-color;
     }
     &:active,
     &:focus {
@@ -28,7 +34,7 @@ $font-family-inter: "Inter", sans-serif;
     }
   }
 
-.navbar-toggler {
+  .navbar-toggler {
     display: none;
     margin-left: auto;
     color: $highlight-color;
@@ -39,7 +45,7 @@ $font-family-inter: "Inter", sans-serif;
       box-shadow: none;
     }
 
-  .navbar-toggler-icon {
+    .navbar-toggler-icon {
       width: 30px;
       height: 2px;
       background-color: $primary-text-color;
@@ -68,7 +74,7 @@ $font-family-inter: "Inter", sans-serif;
     }
   }
 
-.navbar-collapse {
+  .navbar-collapse {
     ul.navbar-nav {
       list-style-type: none;
       padding: 0;
@@ -97,16 +103,16 @@ $font-family-inter: "Inter", sans-serif;
 }
 
 @media (max-width: 990px) {
-.navbar {
+  .navbar {
     flex-direction: column;
 
-  .navbar-brand {
+    .navbar-brand {
       margin-bottom: 10px;
       margin-left: 20px;
     }
 
-  .navbar-toggler {
-      display: block!important;
+    .navbar-toggler {
+      display: block !important;
 
       &:focus,
       &:active {
@@ -115,7 +121,7 @@ $font-family-inter: "Inter", sans-serif;
       }
     }
 
-  .navbar-collapse {
+    .navbar-collapse {
       flex-direction: column;
       width: 100%;
       margin-left: 20px;
