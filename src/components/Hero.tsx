@@ -28,7 +28,7 @@ const Hero = () => {
                             className="hero-subtitle"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.5, duration: 1 }}
+                            transition={{ delay: 1, duration: 1 }}
                         >
                             UCSC Computer Science: Game Design B.S. Graduate.
                         </motion.p>
