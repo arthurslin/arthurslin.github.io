@@ -7,7 +7,7 @@ const Hero = () => {
                 <div className="row w-100">
                     <div className="col-md-6">
                         <motion.img
-                            src="src\assets\arthur.jpg"
+                            src="arthur.jpg"
                             alt="Profile Picture"
                             className="profile-image img-fluid rounded-circle"
                             initial={{ opacity: 0 }}
