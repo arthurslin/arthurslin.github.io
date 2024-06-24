@@ -16,8 +16,22 @@ const Hero = () => {
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column align-items-start justify-content-center">
-                        <h1 className="hero-title mb-3">Welcome to My Portfolio!</h1>
-                        <p className="hero-subtitle">UCSC Computer Science: Game Design B.S. Graduate.</p>
+                        <motion.h1
+                            className="hero-title mb-3"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1 }}
+                        >
+                            Welcome to My Portfolio!
+                        </motion.h1>
+                        <motion.p
+                            className="hero-subtitle"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5, duration: 1 }}
+                        >
+                            UCSC Computer Science: Game Design B.S. Graduate.
+                        </motion.p>
                     </div>
                 </div>
             </div>
