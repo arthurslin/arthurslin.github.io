@@ -11,7 +11,14 @@ const Hero = () => {
               alt="Profile Picture"
               className="profile-image img-fluid rounded-circle"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              animate={{
+                opacity: 1,
+                boxShadow: [
+                  "0 0 10px rgba(255, 255, 255, .5)",
+                  "0 0 10px rgba(255, 255, 255, 1)",
+                  "0 0 10px rgba(255, 255, 255, .5)"
+                ]
+              }}
               transition={{ duration: 1 }}
             />
           </div>
