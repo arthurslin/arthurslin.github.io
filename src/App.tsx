@@ -1,5 +1,6 @@
 import Navbar from "./components/Header";
 import Hero from "./components/Hero";
+import AboutSection from "./components/AboutSection";
 import { BrowserRouter as Router } from "react-router-dom";
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -8,6 +9,7 @@ function App() {
     <Router>
       <Navbar />
       <Hero />
+      <AboutSection/>
 
       {/* Navbar component will still render */}
       {/* Commenting out the Routes for now */}
