@@ -19,7 +19,7 @@ export const workplaces: Workplace[] = [
   },
   {
     title: "Bridging Tech",
-    jobTitle: "Software Engineer Intern Intern",
+    jobTitle: "Software Engineer Intern",
     description:
       "Collaborated with cross-functional teams to design and implement software solutions to support educational initiatives, such as online learning platforms and resource databases. Participated in the full software development lifecycle, from requirements gathering and design to implementation, and deployment.",
     dateStart: "Dec 2023",
