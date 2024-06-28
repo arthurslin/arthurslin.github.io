@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Navbar />
       <Hero />
-      <AboutSection/>
+      <AboutSection />
 
       {/* Navbar component will still render */}
       {/* Commenting out the Routes for now */}

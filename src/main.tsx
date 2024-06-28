@@ -7,7 +7,7 @@ import "./components/Header.scss";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <div style={{ backgroundColor: '#333333' }}>
+    <div style={{ backgroundColor: "#333333" }}>
       <App />
     </div>
   </React.StrictMode>,

@@ -16,8 +16,8 @@ const Hero = () => {
                 boxShadow: [
                   "0 0 10px rgba(255, 255, 255, .5)",
                   "0 0 10px rgba(255, 255, 255, 1)",
-                  "0 0 10px rgba(255, 255, 255, .5)"
-                ]
+                  "0 0 10px rgba(255, 255, 255, .5)",
+                ],
               }}
               transition={{ duration: 1 }}
             />
