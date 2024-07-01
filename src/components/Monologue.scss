@@ -1,0 +1,16 @@
+$bar-color: #333333;
+$bar-color-two: black;
+$primary-text-color: #ffffff;
+$highlight-color: #40ccc1;
+$font-family-inter: "Inter", sans-serif;
+
+.monologue-title {
+    color: $highlight-color;
+    padding-bottom: 20px;
+  }
+  .monologue-text {
+    color: $primary-text-color;
+    padding-bottom: 20px;
+    font-size: 20px;
+  }
+  
