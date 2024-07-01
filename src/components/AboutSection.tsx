@@ -26,6 +26,7 @@ const AnimatedItem: React.FC<{ workplace: typeof workplaces[0] }> = ({ workplace
   const controls = useAnimation();
   const [ref, inView] = useInView({
     threshold: 0.2,
+    triggerOnce: true,
   });
 
   useEffect(() => {
