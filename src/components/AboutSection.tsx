@@ -5,7 +5,7 @@ import "./AboutSection.scss";
 const AboutSection: React.FC = () => {
   return (
     <div className="container">
-      <h2 className="experience-text text-center mt-5">Experiences</h2>
+      <h2 className="experience-text text-center mt-5">Work Experiences</h2>
       <div className="d-flex flex-column align-items-center">
         {workplaces.map((workplace) => (
           <div
@@ -16,6 +16,7 @@ const AboutSection: React.FC = () => {
               <img
                 src={workplace.image}
                 alt={workplace.title}
+                style={{ width: `${workplace.size}%`, height: `${workplace.size}%` }} 
                 className="workplace-image img-fluid"
               />
             </div>
