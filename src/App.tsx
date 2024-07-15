@@ -2,6 +2,7 @@ import Navbar from "./components/Header";
 import Hero from "./components/Hero";
 import Monologue from "./components/Monologue";
 import AboutSection from "./components/AboutSection";
+import Footer from "./components/Footer";
 import { BrowserRouter as Router } from "react-router-dom";
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -12,6 +13,8 @@ function App() {
       <Hero />
       <Monologue/>
       <AboutSection />
+      <Footer />
+
 
       {/* Navbar component will still render */}
       {/* Commenting out the Routes for now */}

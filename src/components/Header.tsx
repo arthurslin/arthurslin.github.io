@@ -16,6 +16,26 @@ const Header: React.FC = () => {
         >
           Arthur Lin
         </motion.a>
+        <motion.a
+          href="https://www.linkedin.com/in/arthur-s-lin"
+          initial={{ x: -100, opacity: 0, scale: 0.95 }}
+          animate={{ x: 0, opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, yoyo: Infinity, repeatDelay: 0.5 }}
+          whileHover={{ scale: 1.1 }}
+        >
+          <img src="in.svg" alt="LinkedIn" className="ms-3" />
+        </motion.a>
+        <motion.a
+          href="https://github.com/arthurslin"
+          initial={{ x: -100, opacity: 0, scale: 0.95 }}
+          animate={{ x: 0, opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, yoyo: Infinity, repeatDelay: 0.5 }}
+          whileHover={{ scale: 1.1 }}
+        >
+          <img src="gh.svg" alt="GitHub" className="ms-3" />
+        </motion.a>
+
+
         <button
           className="navbar-toggler"
           type="button"

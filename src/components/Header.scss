@@ -102,6 +102,11 @@ $font-family-inter: "Inter", sans-serif;
   }
 }
 
+img {
+  height: 24px;
+  width: auto;
+}
+
 @media (max-width: 990px) {
   .navbar {
     flex-direction: column;
