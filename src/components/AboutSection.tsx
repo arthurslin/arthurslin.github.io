@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { workplaces } from "./Experiences";
-import "./AboutSection.scss";
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import "./AboutSection.scss";
 
 const itemVariants = {
   hidden: { opacity: 0, y: 50 },

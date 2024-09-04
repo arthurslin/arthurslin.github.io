@@ -11,7 +11,7 @@ export interface Workplace {
 export const workplaces: Workplace[] = [
   {
     title: "Onto Innovation",
-    jobTitle: "Technical Project Engineer Intern",
+    jobTitle: "ERP Analyst",
     description:
       "Built multiple software applications to automate data analysis across a few different departments. Those departments include: Field Service Engineers, R&D Systems Engineers, and Customer Service and Logistics.",
     dateStart: "May 2024",
