@@ -61,6 +61,11 @@ const AnimatedProject: React.FC<{ project: Project }> = ({ project }) => {
                     <div className="project-details">
                         <h5 className="project-title">{project.title}</h5>
                         <p className="project-description">{project.description}</p>
+                        {project.link && (
+                            <a className="project-link" href={project.link}>
+                                Link
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>
