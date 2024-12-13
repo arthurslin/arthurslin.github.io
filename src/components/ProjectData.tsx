@@ -7,8 +7,8 @@ export interface Project {
   
   export const projectsData: Project[] = [
     {
-      title: "Project 1",
-      description: "Temporary description for Project 1.",
+      title: "Golf Bash Online",
+      description: "Golf Bash: Online is the ultimate golf showdown where friendship takes a swing! In this silly party game, grab your clubs and prepare to battle it out throughout a round of golf.",
       image: "vite.svg",
     },
     {
