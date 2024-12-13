@@ -9,7 +9,8 @@ export interface Project {
     {
       title: "Golf Bash Online",
       description: "Golf Bash: Online is the ultimate golf showdown where friendship takes a swing! In this silly party game, grab your clubs and prepare to battle it out throughout a round of golf.",
-      image: "vite.svg",
+      image: "gboheader.jpg",
+      link: "Link"
     },
     {
       title: "Project 2",
