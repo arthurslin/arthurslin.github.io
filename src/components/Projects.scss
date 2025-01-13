@@ -109,12 +109,16 @@ $font-family-inter: "Inter", sans-serif;
       background-position: center!important;
       border-radius: 10px;
       border: 2px solid $primary-text-color;
-      height: 300px;
+      // height: 300px;
       background: linear-gradient($bar-color, $bar-color-two);
       p {
         font-size: 0.9125rem;
         line-height: 160%;
         color: #999;
       }
+    >.front {
+      height: auto;
+      width: auto;
+    }
     }
 }
