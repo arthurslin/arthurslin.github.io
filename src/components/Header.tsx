@@ -35,7 +35,6 @@ const Header: React.FC = () => {
           <img src="gh.svg" alt="GitHub" className="ms-3" />
         </motion.a>
 
-
         <button
           className="navbar-toggler"
           type="button"

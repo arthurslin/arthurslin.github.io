@@ -44,8 +44,8 @@ export const workplaces: Workplace[] = [
     jobTitle: "Security Specialist",
     description:
       "Employed advanced crisis management skills to effectively de-escalate high-stress situations, thereby preventing inventory shortages by successfully recovering stolen merchandise. Additionally, leveraged intelligence-driven tactics to safeguard both team members and guests, fostering a secure environment.",
-      dateStart: "August 2021",
-      dateEnd: "December 2021",
+    dateStart: "August 2021",
+    dateEnd: "December 2021",
     image: "target_logo.svg",
     size: 25,
   },

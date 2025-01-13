@@ -12,11 +12,10 @@ function App() {
     <Router>
       <Navbar />
       <Hero />
-      <Monologue/>
+      <Monologue />
       <AboutSection />
       <Projects />
       <Footer />
-
 
       {/* Navbar component will still render */}
       {/* Commenting out the Routes for now */}

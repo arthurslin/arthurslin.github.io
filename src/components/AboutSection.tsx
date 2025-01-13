@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { workplaces } from "./Experiences";
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import "./AboutSection.scss";
 
 const itemVariants = {
   hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0 }
+  visible: { opacity: 1, y: 0 },
 };
 
 const AboutSection: React.FC = () => {
@@ -22,7 +22,9 @@ const AboutSection: React.FC = () => {
   );
 };
 
-const AnimatedItem: React.FC<{ workplace: typeof workplaces[0] }> = ({ workplace }) => {
+const AnimatedItem: React.FC<{ workplace: (typeof workplaces)[0] }> = ({
+  workplace,
+}) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     threshold: 0.2,
@@ -64,7 +66,7 @@ const AnimatedItem: React.FC<{ workplace: typeof workplaces[0] }> = ({ workplace
             <p className="card-text">{workplace.description}</p>
             <small className="date-text">
               {workplace.dateStart} -{" "}
-              {workplace.dateEnd? workplace.dateEnd : "Current"}
+              {workplace.dateEnd ? workplace.dateEnd : "Current"}
             </small>
           </div>
         </div>

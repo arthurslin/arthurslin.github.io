@@ -1,22 +1,22 @@
 // src/components/Footer.scss
 
 .footer {
-    background-color: #333;
-    color: white;
-    padding: 20px 0;
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
 
-    .list-inline {
-        margin: 0;
-        padding: 0;
+  .list-inline {
+    margin: 0;
+    padding: 0;
 
-        li {
-            display: inline-block;
-            margin-left: 10px; // Space between icons
+    li {
+      display: inline-block;
+      margin-left: 10px; // Space between icons
 
-            img {
-                height: 24px;
-                width: auto;
-            }
-        }
+      img {
+        height: 24px;
+        width: auto;
+      }
     }
+  }
 }
