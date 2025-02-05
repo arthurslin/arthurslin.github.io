@@ -11,7 +11,7 @@ export const projectsData: Project[] = [
     description:
       "Golf Bash: Online is the ultimate golf showdown where friendship takes a swing! In this silly party game, grab your clubs and prepare to battle it out throughout a round of golf.",
     image: "gboheader.jpg",
-    link: "Link",
+    link: "https://aguizaro.github.io/GolfSite/",
   },
   {
     title: "Project 2",
