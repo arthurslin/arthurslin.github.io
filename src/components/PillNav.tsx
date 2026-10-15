@@ -11,6 +11,8 @@ const items = [
 // Floating nav that highlights whichever section is in view.
 const PillNav = () => {
   const [active, setActive] = useState("home");
+  // Near the top of the page; the CSS uses this to hide the menu on phones.
+  const [atTop, setAtTop] = useState(true);
 
   useEffect(() => {
     const els = items
@@ -30,6 +32,7 @@ const PillNav = () => {
       }
       if (atBottom) current = els[els.length - 1];
       if (current) setActive(current.id);
+      setAtTop(window.scrollY < 80);
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -46,7 +49,7 @@ const PillNav = () => {
   }, []);
 
   return (
-    <nav className="pill-nav" aria-label="Sections">
+    <nav className={atTop ? "pill-nav tucked" : "pill-nav"} aria-label="Sections">
       {items.map(({ id, label }) => (
         <a
           key={id}

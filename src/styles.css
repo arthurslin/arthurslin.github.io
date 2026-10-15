@@ -544,9 +544,26 @@ strong {
     grid-template-columns: 1fr;
     gap: 6px;
   }
+  /* Lead with the face: photo above "about me", sized so both fit on the
+     first screen. */
+  .b-photo {
+    order: -1;
+  }
+  .b-photo img {
+    max-width: 200px;
+  }
   .pill-nav {
     bottom: 16px;
     max-width: calc(100vw - 32px);
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+  /* Keep the menu out of the first screen until the visitor scrolls. */
+  .pill-nav.tucked {
+    transform: translate(-50%, 160%);
+    opacity: 0;
+    pointer-events: none;
   }
   .pill-nav a {
     min-width: 0;

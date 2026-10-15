@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
-const CELL_W = 14; // px per character column
-const CELL_H = 18; // px per character row
+const CELL_W = 12; // px per character column
+const CELL_H = 15; // px per character row
 const FONT = '12px "JetBrains Mono", ui-monospace, monospace';
 const GLOW = 170; // radius of the cursor glow in px
 
@@ -19,10 +19,6 @@ const COLORS = [
   { rgb: "150, 92, 200", max: 0.75 }, // #965cc8
 ];
 const ALPHA_STEPS = 8;
-
-// Elements the stars steer around.
-const CONTENT =
-  "main h1, main h2, main h3, main p, main li, main img, main .status, .footer, .pill-nav";
 
 // Precomputed fill styles, indexed by color * ALPHA_STEPS + (level - 1).
 const STYLES = COLORS.flatMap(({ rgb, max }) =>
@@ -58,56 +54,7 @@ const Background = () => {
     // Per-cell constants, rebuilt on resize: twinkle phase and color index.
     let phase = new Float32Array(0);
     let color = new Uint8Array(0);
-    // Per-cell openness: 1 in empty space, 0 behind content. Stars gather
-    // where it's high. Rebuilt when the layout under the canvas moves.
-    let space = new Float32Array(0);
-    let spaceDirty = true;
-    let spaceAt = 0;
     const pointer = { x: 0, y: 0, tx: 0, ty: 0, on: false };
-
-    const computeSpace = () => {
-      const n = cols * rows;
-      const solid = new Float32Array(n).fill(1);
-      document.querySelectorAll(CONTENT).forEach((el) => {
-        const r = el.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > window.innerHeight || !r.width) return;
-        // One cell of padding keeps stars off the edges of text.
-        const x0 = Math.max(0, Math.floor(r.left / CELL_W) - 1);
-        const x1 = Math.min(cols - 1, Math.floor(r.right / CELL_W) + 1);
-        const y0 = Math.max(0, Math.floor(r.top / CELL_H) - 1);
-        const y1 = Math.min(rows - 1, Math.floor(r.bottom / CELL_H) + 1);
-        for (let y = y0; y <= y1; y++) solid.fill(0, y * cols + x0, y * cols + x1 + 1);
-      });
-      // Two box-blur passes soften the edges so the field fades toward
-      // content instead of stopping at a hard line.
-      let src = solid;
-      for (let pass = 0; pass < 2; pass++) {
-        const out = new Float32Array(n);
-        for (let y = 0; y < rows; y++) {
-          for (let x = 0; x < cols; x++) {
-            let sum = 0;
-            let count = 0;
-            for (let dy = -2; dy <= 2; dy++) {
-              const yy = y + dy;
-              if (yy < 0 || yy >= rows) continue;
-              for (let dx = -2; dx <= 2; dx++) {
-                const xx = x + dx;
-                if (xx < 0 || xx >= cols) continue;
-                sum += src[yy * cols + xx];
-                count++;
-              }
-            }
-            out[y * cols + x] = sum / count;
-          }
-        }
-        src = out;
-      }
-      space = src;
-      spaceDirty = false;
-    };
-    const markDirty = () => {
-      spaceDirty = true;
-    };
 
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -129,7 +76,6 @@ const Background = () => {
           }
         }
       }
-      spaceDirty = true;
     };
 
     const onMove = (e: PointerEvent) => {
@@ -155,14 +101,8 @@ const Background = () => {
       ctx.font = FONT;
       ctx.textBaseline = "top";
       buckets.forEach((b) => (b.length = 0));
-      // Rebuild the space map after scrolls and resizes, and every half
-      // second anyway to catch sections fading in.
-      if (spaceDirty || t - spaceAt > 500) {
-        computeSpace();
-        spaceAt = t;
-      }
 
-      const s = t / 1400;
+      const s = t / 2000;
       pointer.x += (pointer.tx - pointer.x) * 0.18;
       pointer.y += (pointer.ty - pointer.y) * 0.18;
       const glowX = GLOW / CELL_W;
@@ -176,16 +116,12 @@ const Background = () => {
             Math.sin(y * 0.11 - s) +
             Math.sin((x + y) * 0.04 + s * 0.7) +
             Math.sin(Math.hypot(x - cols * 0.7, y - rows * 0.2) * 0.08 - s * 1.6);
-          // Each cell also twinkles strongly on its own phase.
-          const twinkle = 0.5 + 0.5 * Math.sin(t / 320 + phase[i]);
-          // Waves swell and dim the field rather than gating it, so open
-          // space always holds stars; the space map piles them into
-          // whitespace and thins them behind content.
+          // Each cell also twinkles on its own phase.
+          const twinkle = 0.5 + 0.5 * Math.sin(t / 480 + phase[i]);
+          // Every cell keeps a faint floor so no part of the page goes
+          // blank; waves rise above it (squared, so peaks still stand out).
           const wave = (v + 4) / 8;
-          let b =
-            (0.3 + 0.7 * wave) *
-            (0.3 + 0.7 * twinkle) *
-            (0.05 + 1.2 * space[i]);
+          let b = (0.22 + 0.78 * wave * wave) * (0.4 + 0.6 * twinkle);
 
           if (pointer.on) {
             const dx = (x - pointer.x) / glowX;
@@ -197,7 +133,7 @@ const Background = () => {
           b = Math.min(b, 1);
 
           const glyph = Math.min(RAMP.length - 1, Math.floor(b * RAMP.length));
-          const level = Math.min(ALPHA_STEPS, Math.ceil(b * ALPHA_STEPS));
+          const level = Math.min(ALPHA_STEPS, Math.max(2, Math.ceil(b * ALPHA_STEPS)));
           buckets[color[i] * ALPHA_STEPS + level - 1].push(x, y, glyph);
         }
       }
@@ -211,17 +147,6 @@ const Background = () => {
       });
     };
 
-    // With reduced motion there's no animation loop, so redraw the static
-    // frame (at most once per animation frame) when the page scrolls.
-    const onStillScroll = () => {
-      if (!raf) {
-        raf = requestAnimationFrame(() => {
-          raf = 0;
-          draw(0);
-        });
-      }
-    };
-
     const loop = (t: number) => {
       // ~20 fps is smooth enough for a slow drift and keeps CPU use low.
       if (t - last > 50) {
@@ -233,13 +158,10 @@ const Background = () => {
 
     resize();
     window.addEventListener("resize", resize);
-    window.addEventListener("scroll", markDirty, { passive: true });
     if (still) {
       draw(0);
-      // Redraw once the web font arrives so glyphs use it, and on scroll so
-      // the stars stay in the whitespace.
+      // Redraw once the web font arrives so glyphs use it.
       document.fonts?.ready.then(() => draw(0));
-      window.addEventListener("scroll", onStillScroll, { passive: true });
     } else {
       window.addEventListener("pointermove", onMove);
       document.documentElement.addEventListener("pointerleave", onLeave);
@@ -249,8 +171,6 @@ const Background = () => {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("scroll", markDirty);
-      window.removeEventListener("scroll", onStillScroll);
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
     };
