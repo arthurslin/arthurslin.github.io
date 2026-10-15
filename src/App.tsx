@@ -1,32 +1,26 @@
-import Navbar from "./components/Header";
-import Hero from "./components/Hero";
-import Monologue from "./components/Monologue";
-import AboutSection from "./components/AboutSection";
-import Projects from "./components/Projects";
+import Background from "./components/Background";
+import Home from "./components/Home";
+import Work from "./components/Work";
+import Games from "./components/Games";
+import Contact from "./components/Contact";
+import PillNav from "./components/PillNav";
 import Footer from "./components/Footer";
-import { BrowserRouter as Router } from "react-router-dom";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useReveal } from "./components/useReveal";
 
 function App() {
+  useReveal();
   return (
-    <Router>
-      <Navbar />
-      <Hero />
-      <Monologue />
-      <AboutSection />
-      <Projects />
+    <>
+      <Background />
+      <main className="wrap">
+        <Home />
+        <Work />
+        <Games />
+        <Contact />
+      </main>
       <Footer />
-
-      {/* Navbar component will still render */}
-      {/* Commenting out the Routes for now */}
-      {/* { <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<AboutSection />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/skills" element={<Skills />} />
-                <Route path="/contact" element={<Contact />} />
-            </Routes> } */}
-    </Router>
+      <PillNav />
+    </>
   );
 }
 
