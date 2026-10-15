@@ -1,12 +1,42 @@
 import { useEffect, useRef } from "react";
 
-const CELL = 6; // px between dots
-const DOT = 2; // dot size in px
-const GLOW = 160; // radius of the cursor glow in px
+const CELL_W = 14; // px per character column
+const CELL_H = 18; // px per character row
+const FONT = '12px "JetBrains Mono", ui-monospace, monospace';
+const GLOW = 170; // radius of the cursor glow in px
 
-// An animated dot-matrix texture drawn behind the page: drifting waves of
-// light, plus a soft glow that follows the cursor. Brightness comes from a
-// few overlapping sine waves, so it needs no noise library.
+// Brightness ramp, faintest to brightest: dots that grow into four-point stars.
+const RAMP = ["·", "·", "∙", "+", "✧", "✧", "✦", "✦"];
+
+// Mostly grey, with "notes" in the button purple (#2a0d3e) scattered through
+// the field. That exact shade vanishes on the dark background, so the notes
+// use lighter tints of the same hue. They sit brighter than the grey so they
+// read as color.
+const COLORS = [
+  { rgb: "214, 220, 230", max: 0.34 }, // grey
+  { rgb: "90, 42, 128", max: 0.9 }, // #5a2a80, the button outline
+  { rgb: "118, 52, 172", max: 0.85 }, // #7634ac
+  { rgb: "150, 92, 200", max: 0.75 }, // #965cc8
+];
+const ALPHA_STEPS = 8;
+
+// Precomputed fill styles, indexed by color * ALPHA_STEPS + (level - 1).
+const STYLES = COLORS.flatMap(({ rgb, max }) =>
+  Array.from(
+    { length: ALPHA_STEPS },
+    (_, i) => `rgba(${rgb}, ${(((i + 1) / ALPHA_STEPS) * max).toFixed(3)})`,
+  ),
+);
+
+// Cheap deterministic per-cell hash in [0, 1).
+const hash = (x: number, y: number) => {
+  const h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+  return h - Math.floor(h);
+};
+
+// An animated field of characters behind the page: drifting waves of light
+// that grow each cell from a dot into a star, plus a glow following the
+// cursor. Brightness comes from overlapping sine waves (no noise library).
 const Background = () => {
   const ref = useRef<HTMLCanvasElement>(null);
 
@@ -20,65 +50,103 @@ const Background = () => {
     let last = 0;
     let cols = 0;
     let rows = 0;
-    // Pointer position in cells, eased toward the real cursor for a trailing feel.
-    const pointer = { x: -999, y: -999, tx: -999, ty: -999, strength: 0 };
+    let dpr = 1;
+    // Per-cell constants, rebuilt on resize: twinkle phase and color index.
+    let phase = new Float32Array(0);
+    let color = new Uint8Array(0);
+    const pointer = { x: 0, y: 0, tx: 0, ty: 0, on: false };
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      cols = Math.ceil(canvas.width / CELL);
-      rows = Math.ceil(canvas.height / CELL);
-    };
-
-    const onMove = (e: PointerEvent) => {
-      pointer.tx = e.clientX / CELL;
-      pointer.ty = e.clientY / CELL;
-      if (pointer.x < -900) {
-        pointer.x = pointer.tx;
-        pointer.y = pointer.ty;
-      }
-      pointer.strength = 1;
-    };
-    const onLeave = () => {
-      pointer.strength = 0;
-    };
-
-    const draw = (t: number) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const s = t / 2600;
-      pointer.x += (pointer.tx - pointer.x) * 0.15;
-      pointer.y += (pointer.ty - pointer.y) * 0.15;
-      const glowCells = GLOW / CELL;
-      // A slow diagonal band of light that sweeps across the screen.
-      const sweep = ((t / 60) % (cols + rows + 200)) - 100;
-
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      cols = Math.ceil(window.innerWidth / CELL_W);
+      rows = Math.ceil(window.innerHeight / CELL_H);
+      phase = new Float32Array(cols * rows);
+      color = new Uint8Array(cols * rows);
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-          const v =
-            Math.sin(x * 0.045 + s * 1.3) +
-            Math.sin(y * 0.06 - s) +
-            Math.sin((x + y) * 0.025 + s * 0.7) +
-            Math.sin(Math.hypot(x - cols * 0.7, y - rows * 0.2) * 0.05 - s * 1.6);
-          let a = Math.max(0, v / 4) * 0.18;
-
-          const band = Math.abs(x + y - sweep);
-          if (band < 24) a += (1 - band / 24) * 0.05;
-
-          if (pointer.strength) {
-            const d = Math.hypot(x - pointer.x, y - pointer.y);
-            if (d < glowCells) a += (1 - d / glowCells) ** 2 * 0.35;
+          const i = y * cols + x;
+          phase[i] = hash(x, y) * Math.PI * 2;
+          // About 1 in 6 cells carries a muted color.
+          if (hash(x + 91, y + 37) < 0.18) {
+            color[i] = 1 + Math.floor(hash(x + 7, y + 3) * (COLORS.length - 1));
           }
-
-          if (a < 0.012) continue;
-          ctx.fillStyle = `rgba(214, 222, 235, ${Math.min(a, 0.6).toFixed(3)})`;
-          ctx.fillRect(x * CELL, y * CELL, DOT, DOT);
         }
       }
     };
 
+    const onMove = (e: PointerEvent) => {
+      pointer.tx = e.clientX / CELL_W;
+      pointer.ty = e.clientY / CELL_H;
+      if (!pointer.on) {
+        pointer.x = pointer.tx;
+        pointer.y = pointer.ty;
+      }
+      pointer.on = true;
+    };
+    const onLeave = () => {
+      pointer.on = false;
+    };
+
+    // Cells are grouped by fill style so each style is set once per frame.
+    // Each bucket holds flat [x, y, glyphIndex] triples.
+    const buckets: number[][] = STYLES.map(() => []);
+
+    const draw = (t: number) => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.font = FONT;
+      ctx.textBaseline = "top";
+      buckets.forEach((b) => (b.length = 0));
+
+      const s = t / 2600;
+      pointer.x += (pointer.tx - pointer.x) * 0.18;
+      pointer.y += (pointer.ty - pointer.y) * 0.18;
+      const glowX = GLOW / CELL_W;
+      const glowY = GLOW / CELL_H;
+
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          const i = y * cols + x;
+          const v =
+            Math.sin(x * 0.07 + s * 1.3) +
+            Math.sin(y * 0.11 - s) +
+            Math.sin((x + y) * 0.04 + s * 0.7) +
+            Math.sin(Math.hypot(x - cols * 0.7, y - rows * 0.2) * 0.08 - s * 1.6);
+          // Each cell also twinkles on its own phase.
+          const twinkle = 0.5 + 0.5 * Math.sin(t / 700 + phase[i]);
+          let b = Math.max(0, v / 4) * (0.55 + 0.45 * twinkle);
+
+          if (pointer.on) {
+            const dx = (x - pointer.x) / glowX;
+            const dy = (y - pointer.y) / glowY;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < 1) b += (1 - d) ** 2 * 0.9;
+          }
+          if (b < 0.06) continue;
+          b = Math.min(b, 1);
+
+          const glyph = Math.min(RAMP.length - 1, Math.floor(b * RAMP.length));
+          const level = Math.min(ALPHA_STEPS, Math.ceil(b * ALPHA_STEPS));
+          buckets[color[i] * ALPHA_STEPS + level - 1].push(x, y, glyph);
+        }
+      }
+
+      buckets.forEach((cells, k) => {
+        if (!cells.length) return;
+        ctx.fillStyle = STYLES[k];
+        for (let j = 0; j < cells.length; j += 3) {
+          ctx.fillText(RAMP[cells[j + 2]], cells[j] * CELL_W, cells[j + 1] * CELL_H);
+        }
+      });
+    };
+
     const loop = (t: number) => {
-      // ~30 fps keeps the motion smooth while limiting CPU use.
-      if (t - last > 33) {
+      // ~20 fps is smooth enough for a slow drift and keeps CPU use low.
+      if (t - last > 50) {
         draw(t);
         last = t;
       }
@@ -89,6 +157,8 @@ const Background = () => {
     window.addEventListener("resize", resize);
     if (still) {
       draw(0);
+      // Redraw once the web font arrives so glyphs use it.
+      document.fonts?.ready.then(() => draw(0));
     } else {
       window.addEventListener("pointermove", onMove);
       document.documentElement.addEventListener("pointerleave", onLeave);
