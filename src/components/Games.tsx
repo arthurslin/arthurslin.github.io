@@ -13,8 +13,8 @@ const steps = [
 ];
 
 const Games = () => (
-  <section className="page" id="games" data-reveal>
-    <h2 className="page-title">games</h2>
+  <section className="page" id="projects" data-reveal>
+    <h2 className="page-title">projects</h2>
 
     <article className="feature">
       <div className="feature-copy">

@@ -6,7 +6,7 @@ const Home = () => (
 
     <div className="grid">
       <div className="block b-tldr">
-        <h2>tldr</h2>
+        <h2>about me</h2>
         <p>
           I work where engineering meets business: configuring how products
           get quoted and sold by day, shipping my own games by night, and
@@ -35,7 +35,7 @@ const Home = () => (
         <h2>shipping</h2>
         <p>
           Releasing{" "}
-          <a href="#games">Meow Ball Rush</a>, my solo-built Android game.
+          <a href="#projects">Meow Ball Rush</a>, my solo-built Android game.
           Roll up a giant ball of cats and take on 12 bosses. It's in{" "}
           <a href={links.meowTest}>closed testing</a> on Google Play now.
         </p>
