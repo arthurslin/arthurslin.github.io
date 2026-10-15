@@ -5,84 +5,204 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Test Meow Ball Rush</title>
 <meta name="description" content="Help test Meow Ball Rush, a cat runner game for Android. Two taps to join.">
+<meta name="theme-color" content="#ff7eb6">
 <meta property="og:title" content="Help test Meow Ball Rush 🐱">
 <meta property="og:description" content="Roll up a giant ball of cats! Join the Android test in two taps.">
 <meta property="og:image" content="https://arthurslin.github.io/meowballrush/feature.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fff6ec; --card: #ffffff; --ink: #2b2140; --muted: #6d6380;
-    --pink: #ff5fa2; --pink-d: #e0428a; --blue: #3b82f6; --blue-d: #2563eb;
-    --green: #22a06b; --line: #f0e3d4;
+    --ink: #2b2140; --muted: #6d6380; --card: #ffffff; --line: #f3e2d0;
+    --pink: #ff5fa2; --pink-d: #d93b80; --blue: #4f8bff; --blue-d: #2f62d9;
+    --green: #22b573; --green-d: #178a56; --sun: #ffd23f;
   }
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { background: #ffe4f1; }
   body {
-    margin: 0; background: var(--bg); color: var(--ink);
-    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    margin: 0; color: var(--ink); overflow-x: hidden; min-height: 100vh;
+    font: 16px/1.5 Nunito, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(170deg, #ffd6ea 0%, #fff0d9 45%, #d9f1ff 100%);
+    background-attachment: fixed;
   }
-  main { max-width: 480px; margin: 0 auto; padding: 20px 16px 40px; }
-  .hero { width: 100%; border-radius: 18px; display: block; box-shadow: 0 6px 20px rgba(43,33,64,.15); }
-  .head { display: flex; align-items: center; gap: 14px; margin: 20px 0 6px; }
-  .head img { width: 64px; height: 64px; border-radius: 16px; box-shadow: 0 3px 10px rgba(43,33,64,.2); }
-  h1 { font-size: 24px; line-height: 1.2; margin: 0; }
-  .sub { color: var(--muted); margin: 2px 0 0; font-size: 15px; }
-  .lead { margin: 14px 0 20px; }
-  .step {
-    background: var(--card); border: 2px solid var(--line); border-radius: 18px;
-    padding: 16px; margin-bottom: 14px;
+  h1, h2, .btn, .stat b, .badge, .done-title { font-family: Fredoka, Nunito, system-ui, sans-serif; }
+
+  /* drifting background critters */
+  #sky { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .critter {
+    position: absolute; bottom: -60px; font-size: 28px; opacity: .55; pointer-events: auto; cursor: pointer;
+    animation: rise linear forwards; user-select: none; will-change: transform;
   }
-  .step h2 { font-size: 17px; margin: 0 0 4px; display: flex; align-items: center; gap: 10px; }
-  .num {
-    flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: #fff;
-    display: inline-flex; align-items: center; justify-content: center; font-size: 15px;
+  @keyframes rise {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to   { transform: translate(var(--dx), -115vh) rotate(var(--rot)); }
   }
-  .step.done { border-color: var(--green); }
-  .step.done .num { background: var(--green); }
+  .pop { position: fixed; pointer-events: none; z-index: 50; font: 700 18px Fredoka, sans-serif; color: var(--pink-d);
+         animation: popUp .9s ease-out forwards; text-shadow: 0 2px 0 #fff; }
+  @keyframes popUp { from { opacity: 1; transform: translate(-50%, 0) scale(.6); } to { opacity: 0; transform: translate(-50%, -60px) scale(1.2); } }
+
+  main { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 18px 16px 48px; }
+
+  .hero { position: relative; border-radius: 22px; overflow: hidden; box-shadow: 0 10px 30px rgba(217,59,128,.25);
+          animation: dropIn .8s cubic-bezier(.2,1.4,.4,1) both; }
+  .hero img { display: block; width: 100%; height: auto; aspect-ratio: 1024/500; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.45) 50%, transparent 65%);
+                 transform: translateX(-100%); animation: shine 4s 1.2s ease-in-out infinite; }
+  .badge { position: absolute; top: 10px; right: 10px; background: var(--sun); color: var(--ink); font-weight: 700; font-size: 13px;
+           padding: 4px 10px; border-radius: 99px; box-shadow: 0 3px 0 #d9a800; transform: rotate(6deg); animation: wiggle 2.4s ease-in-out infinite; }
+  @keyframes dropIn { from { opacity: 0; transform: translateY(-30px) scale(.9); } to { opacity: 1; transform: none; } }
+  @keyframes shine { 0%, 60% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+  @keyframes wiggle { 0%, 100% { transform: rotate(6deg); } 50% { transform: rotate(-4deg) scale(1.06); } }
+
+  .head { display: flex; align-items: center; gap: 14px; margin: 18px 0 4px; animation: fadeUp .6s .15s both; }
+  .head img { width: 68px; height: 68px; border-radius: 18px; box-shadow: 0 4px 12px rgba(43,33,64,.25); animation: bob 3s ease-in-out infinite; cursor: pointer; }
+  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-5px) rotate(3deg); } }
+  h1 { font-size: 27px; line-height: 1.1; margin: 0; letter-spacing: -.3px; }
+  h1 span { color: var(--pink); }
+  .sub { color: var(--muted); margin: 3px 0 0; font-size: 15px; font-weight: 700; }
+  .lead { margin: 14px 0 16px; animation: fadeUp .6s .25s both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; animation: fadeUp .6s .35s both; }
+  .stat { background: rgba(255,255,255,.75); border-radius: 14px; padding: 8px 4px; text-align: center; font-size: 12px; color: var(--muted); font-weight: 700; }
+  .stat b { display: block; font-size: 24px; color: var(--ink); line-height: 1.1; }
+
+  /* ball rolling along a track */
+  .track { position: relative; height: 46px; margin: 4px 0 10px; }
+  .track::before { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 4px; border-radius: 4px;
+                   background: repeating-linear-gradient(90deg, #f7c6dc 0 14px, transparent 14px 24px); }
+  .roller { position: absolute; bottom: 8px; left: 0; width: 38px; height: 38px; animation: roll 7s linear infinite; }
+  .roller img { width: 100%; height: 100%; border-radius: 50%; animation: spin .9s linear infinite; box-shadow: 0 3px 6px rgba(0,0,0,.2); }
+  @keyframes roll { from { transform: translateX(-50px); } to { transform: translateX(calc(min(480px, 100vw) - 10px)); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .progress { background: rgba(255,255,255,.8); border-radius: 99px; height: 14px; overflow: hidden; margin: 0 0 6px; box-shadow: inset 0 2px 3px rgba(0,0,0,.08); }
+  .progress i { display: block; height: 100%; width: 0; border-radius: 99px; transition: width .7s cubic-bezier(.2,1.3,.4,1);
+                background: repeating-linear-gradient(45deg, var(--pink) 0 12px, #ff86bb 12px 24px); background-size: 34px 34px; animation: stripes 1s linear infinite; }
+  @keyframes stripes { to { background-position: 34px 0; } }
+  .progress-label { font-size: 13px; font-weight: 800; color: var(--muted); text-align: right; margin-bottom: 12px; }
+
+  .step { position: relative; background: var(--card); border: 3px solid var(--line); border-radius: 20px; padding: 16px; margin-bottom: 14px;
+          box-shadow: 0 6px 0 var(--line); transition: border-color .3s, box-shadow .3s, transform .3s; animation: fadeUp .6s both; }
+  .step:nth-of-type(1) { animation-delay: .45s; } .step:nth-of-type(2) { animation-delay: .55s; } .step:nth-of-type(3) { animation-delay: .65s; }
+  .step h2 { font-size: 19px; margin: 0 0 4px; display: flex; align-items: center; gap: 10px; }
+  .num { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 17px;
+         display: inline-flex; align-items: center; justify-content: center; transition: background .3s, transform .4s cubic-bezier(.2,1.6,.4,1); }
   .step p { margin: 0 0 12px; color: var(--muted); font-size: 15px; }
-  .btn {
-    display: block; text-align: center; text-decoration: none; color: #fff; font-weight: 700;
-    font-size: 18px; padding: 15px 16px; border-radius: 14px; background: var(--pink);
-    box-shadow: 0 4px 0 var(--pink-d);
-  }
-  .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--pink-d); }
-  .btn.blue { background: var(--blue); box-shadow: 0 4px 0 var(--blue-d); }
-  .btn.ghost { background: transparent; color: var(--ink); border: 2px solid var(--line); box-shadow: none; font-size: 16px; }
-  .note { background: #fff; border-radius: 14px; padding: 14px 16px; font-size: 14px; color: var(--muted); border: 1px dashed #e5d3bf; }
+  .step.next { border-color: #ffb3d4; box-shadow: 0 6px 0 #ffb3d4; }
+  .step.next .num { background: var(--pink); animation: nudge 1.4s ease-in-out infinite; }
+  @keyframes nudge { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+  .step.done { border-color: #9ee3c3; box-shadow: 0 6px 0 #9ee3c3; }
+  .step.done .num { background: var(--green); transform: rotate(360deg); }
+  .step.done .num::after { content: "✓"; } .step.done .num span { display: none; }
+  .step.done .btn { filter: saturate(.65); }
+
+  .btn { position: relative; overflow: hidden; display: block; text-align: center; text-decoration: none; color: #fff; font-weight: 700;
+         font-size: 20px; padding: 15px 16px; border-radius: 16px; background: var(--pink); box-shadow: 0 5px 0 var(--pink-d);
+         transition: transform .08s, box-shadow .08s; }
+  .btn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%);
+                transform: translateX(-120%); animation: shine 3s ease-in-out infinite; }
+  .btn:active { transform: translateY(4px) scale(.98); box-shadow: 0 1px 0 var(--pink-d); }
+  .btn.blue { background: var(--blue); box-shadow: 0 5px 0 var(--blue-d); }
+  .btn.blue:active { box-shadow: 0 1px 0 var(--blue-d); }
+  .btn.ghost { background: #fff; color: var(--ink); border: 3px solid var(--line); box-shadow: 0 4px 0 var(--line); font-size: 17px; }
+  .btn.ghost::after { display: none; }
+  .btn .emo { display: inline-block; margin-right: 6px; animation: bob 2s ease-in-out infinite; }
+
+  .shots-title { font: 700 18px Fredoka, sans-serif; margin: 26px 0 10px; }
+  .shots { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 14px; margin: 0 -16px; padding-left: 16px; scrollbar-width: none; }
+  .shots::-webkit-scrollbar { display: none; }
+  .shots img { flex: none; width: 150px; aspect-ratio: 9/16; border-radius: 16px; scroll-snap-align: start; box-shadow: 0 6px 16px rgba(43,33,64,.2);
+               transition: transform .25s; background: #fff; }
+  .shots img:nth-child(odd) { transform: rotate(-1.5deg); } .shots img:nth-child(even) { transform: rotate(1.5deg); }
+  .shots img:hover { transform: scale(1.04) rotate(0); }
+
+  .note { background: rgba(255,255,255,.85); border-radius: 16px; padding: 14px 16px; font-size: 14px; color: var(--muted); border: 2px dashed #f0c9a6; margin-top: 10px; }
   .note b { color: var(--ink); }
   .note ul { margin: 6px 0 0; padding-left: 18px; }
   footer { text-align: center; font-size: 13px; color: var(--muted); margin-top: 22px; }
   footer a { color: var(--muted); }
+
+  /* celebration */
+  .done-card { display: none; text-align: center; background: linear-gradient(135deg, #fff, #fff4fa); border: 3px solid #ffb3d4; border-radius: 22px;
+               padding: 18px 16px; margin: 0 0 14px; box-shadow: 0 6px 0 #ffb3d4; animation: dropIn .7s cubic-bezier(.2,1.5,.4,1) both; }
+  .done-card.show { display: block; }
+  .done-title { font-size: 24px; margin: 0; }
+  .done-card p { margin: 6px 0 0; color: var(--muted); }
+  .done-cats { font-size: 34px; letter-spacing: 4px; animation: bob 1.6s ease-in-out infinite; display: inline-block; }
+  #fx { position: fixed; inset: 0; pointer-events: none; z-index: 40; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    #sky { display: none; }
+  }
 </style>
 </head>
 <body>
+<div id="sky" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
 <main>
-  <img class="hero" src="feature.png" alt="Meow Ball Rush: a hero cat riding a giant rolling ball of cats">
+  <div class="hero">
+    <img src="feature.webp" alt="Meow Ball Rush: a hero cat riding a giant rolling ball of cats" width="1024" height="500">
+    <span class="badge">Testers wanted!</span>
+  </div>
+
   <div class="head">
-    <img src="icon.png" alt="">
+    <img id="logo" src="icon.png" alt="" width="68" height="68">
     <div>
-      <h1>Help test Meow Ball Rush</h1>
-      <p class="sub">A silly cat runner for Android</p>
+      <h1>Help test <span>Meow Ball Rush</span></h1>
+      <p class="sub">A silly cat runner for Android 🐾</p>
     </div>
   </div>
-  <p class="lead">Roll up a giant ball of cats, smash walls and beat 12 wild bosses. I need testers before it can launch on Google Play. It takes about a minute. Thank you! 🐱</p>
+  <p class="lead">Roll up a giant ball of cats, smash walls and beat wild bosses. I need testers before it can launch on Google Play. It takes about a minute. Thank you!</p>
+
+  <div class="stats">
+    <div class="stat"><b data-count="12">0</b>wild bosses</div>
+    <div class="stat"><b data-count="8">0</b>crazy worlds</div>
+    <div class="stat"><b data-count="20">0</b>hero cats</div>
+  </div>
+
+  <div class="track" aria-hidden="true"><div class="roller"><img src="icon.png" alt=""></div></div>
+
+  <div class="progress" role="progressbar" aria-label="Sign-up progress" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0"><i id="bar"></i></div>
+  <div class="progress-label" id="plabel">0 of 2 steps</div>
+
+  <div class="done-card" id="doneCard" role="status">
+    <div class="done-cats">😺😸😻</div>
+    <p class="done-title">You're a tester! Thank you!</p>
+    <p>Install the game from Google Play and keep it for 14 days. Every run helps.</p>
+  </div>
 
   <section class="step" id="s1">
-    <h2><span class="num">1</span> Join the tester group</h2>
+    <h2><span class="num"><span>1</span></span> Join the tester group</h2>
     <p>Tap <b>Join group</b> on the page that opens. Use the same Google account as your Play Store.</p>
-    <a class="btn" href="https://groups.google.com/g/meowballrush-testers" target="_blank" rel="noopener" data-step="1">Join tester group</a>
+    <a class="btn" href="https://groups.google.com/g/meowballrush-testers" target="_blank" rel="noopener" data-step="1"><span class="emo">🐱</span>Join tester group</a>
   </section>
 
   <section class="step" id="s2">
-    <h2><span class="num">2</span> Become a tester and install</h2>
+    <h2><span class="num"><span>2</span></span> Become a tester and install</h2>
     <p>Tap <b>Become a tester</b>, then <b>Download it on Google Play</b>.</p>
-    <a class="btn blue" href="https://play.google.com/apps/testing/io.github.arthurslin.meowballrush" target="_blank" rel="noopener" data-step="2">Become a tester</a>
+    <a class="btn blue" href="https://play.google.com/apps/testing/io.github.arthurslin.meowballrush" target="_blank" rel="noopener" data-step="2"><span class="emo">🎮</span>Become a tester</a>
   </section>
 
   <section class="step" id="s3">
-    <h2><span class="num">3</span> Play, and keep it installed for 14 days</h2>
+    <h2><span class="num"><span>3</span></span> Play and keep it for 14 days</h2>
     <p>Google needs testers to stay in for 2 weeks before the game can go public. A few runs now and then helps a lot.</p>
-    <a class="btn ghost" href="https://play.google.com/store/apps/details?id=io.github.arthurslin.meowballrush" target="_blank" rel="noopener">Open in Play Store</a>
+    <a class="btn ghost" href="https://play.google.com/store/apps/details?id=io.github.arthurslin.meowballrush" target="_blank" rel="noopener">Open in Play Store ▸</a>
   </section>
+
+  <div class="shots-title">Sneak peek 👀</div>
+  <div class="shots">
+    <img src="shot-1.webp" alt="A giant ball of cats rolling down a candy road" loading="lazy">
+    <img src="shot-2.webp" alt="Boss fight against a giant crab" loading="lazy">
+    <img src="shot-3.webp" alt="Picking the best gate and smashing walls" loading="lazy">
+    <img src="shot-4.webp" alt="Rainbow catnip frenzy" loading="lazy">
+    <img src="shot-5.webp" alt="Jumping a ramp to a new world" loading="lazy">
+    <img src="shot-6.webp" alt="Cat skins shop" loading="lazy">
+  </div>
 
   <div class="note">
     <b>Something not working?</b>
@@ -96,17 +216,103 @@
   <footer>Made by Arthur Lin · <a href="https://arthurslin.github.io/meow-ball-rush-privacy/">Privacy policy</a></footer>
 </main>
 <script>
-  // Remember which steps were tapped, so returning to this page shows progress.
+(() => {
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- confetti / emoji burst on a canvas ----
+  const fx = document.getElementById('fx'), ctx = fx.getContext('2d');
+  let parts = [], running = false;
+  const size = () => { fx.width = innerWidth * devicePixelRatio; fx.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0); };
+  size(); addEventListener('resize', size);
+  const COLORS = ['#ff5fa2', '#4f8bff', '#ffd23f', '#22b573', '#b57bff'];
+  const EMO = ['🐱', '🐟', '😺', '⭐', '🐾'];
+  function burst(x, y, n = 28, emoji = true) {
+    if (calm) return;
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * Math.PI * 2, s = 3 + Math.random() * 6;
+      parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 4, life: 70 + Math.random() * 30, r: Math.random() * 6.28, vr: (Math.random() - .5) * .3,
+        e: emoji && Math.random() < .35 ? EMO[i % EMO.length] : null, c: COLORS[i % COLORS.length], w: 6 + Math.random() * 6 });
+    }
+    if (!running) { running = true; requestAnimationFrame(tick); }
+  }
+  function tick() {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    parts = parts.filter(p => p.life-- > 0);
+    for (const p of parts) {
+      p.vy += .22; p.vx *= .985; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      ctx.save(); ctx.globalAlpha = Math.min(1, p.life / 30); ctx.translate(p.x, p.y); ctx.rotate(p.r);
+      if (p.e) { ctx.font = '22px serif'; ctx.textAlign = 'center'; ctx.fillText(p.e, 0, 0); }
+      else { ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.w / 4, p.w, p.w / 2); }
+      ctx.restore();
+    }
+    if (parts.length) requestAnimationFrame(tick); else { running = false; ctx.clearRect(0, 0, innerWidth, innerHeight); }
+  }
+  function rain() { for (let i = 0; i < 6; i++) setTimeout(() => burst(Math.random() * innerWidth, -10, 18), i * 160); }
+
+  // ---- little "meow!" popups ----
+  const SAYS = ['meow!', 'mrrp!', 'purr~', 'nya!', 'mew!', '*zoom*'];
+  function say(x, y, text) {
+    const el = document.createElement('div'); el.className = 'pop';
+    el.textContent = text || SAYS[Math.floor(Math.random() * SAYS.length)];
+    el.style.left = x + 'px'; el.style.top = (y - 10) + 'px';
+    document.body.appendChild(el); setTimeout(() => el.remove(), 900);
+  }
+
+  // ---- drifting critters you can pop ----
+  const sky = document.getElementById('sky');
+  const CRIT = ['🐱', '😺', '🐟', '🐾', '😸', '🧶', '😻'];
+  function spawn() {
+    if (document.hidden || sky.childElementCount > 14) return;
+    const c = document.createElement('span'); c.className = 'critter';
+    c.textContent = CRIT[Math.floor(Math.random() * CRIT.length)];
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.fontSize = 20 + Math.random() * 22 + 'px';
+    c.style.setProperty('--dx', (Math.random() - .5) * 120 + 'px');
+    c.style.setProperty('--rot', (Math.random() - .5) * 540 + 'deg');
+    c.style.animationDuration = 10 + Math.random() * 10 + 's';
+    c.addEventListener('pointerdown', e => { const r = c.getBoundingClientRect(); burst(r.x + r.width / 2, r.y + r.height / 2, 14); say(e.clientX, e.clientY); c.remove(); });
+    c.addEventListener('animationend', () => c.remove());
+    sky.appendChild(c);
+  }
+  if (!calm) { for (let i = 0; i < 5; i++) setTimeout(spawn, i * 500); setInterval(spawn, 1600); }
+
+  document.getElementById('logo').addEventListener('click', e => { burst(e.clientX, e.clientY, 20); say(e.clientX, e.clientY); });
+
+  // ---- count-up stats ----
+  document.querySelectorAll('[data-count]').forEach((el, i) => {
+    const to = +el.dataset.count, t0 = performance.now() + 400 + i * 120;
+    if (calm) { el.textContent = to; return; }
+    const step = now => { const k = Math.min(1, Math.max(0, (now - t0) / 900)); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+
+  // ---- step progress (remembered for return visits) ----
   const KEY = 'mbr-join-steps';
   let done = [];
   try { done = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) {}
-  const mark = n => document.getElementById('s' + n)?.classList.add('done');
-  done.forEach(mark);
-  document.querySelectorAll('[data-step]').forEach(a => a.addEventListener('click', () => {
-    const n = a.dataset.step; mark(n);
+  const bar = document.getElementById('bar'), plabel = document.getElementById('plabel'), card = document.getElementById('doneCard');
+  function render(celebrate) {
+    ['1', '2'].forEach(n => document.getElementById('s' + n).classList.toggle('done', done.includes(n)));
+    const next = ['1', '2'].find(n => !done.includes(n));
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('next'));
+    if (next) document.getElementById('s' + next).classList.add('next');
+    const k = done.filter(n => n === '1' || n === '2').length;
+    bar.style.width = (k / 2 * 100) + '%';
+    bar.parentElement.setAttribute('aria-valuenow', k);
+    plabel.textContent = k === 2 ? 'All done! 🎉' : k + ' of 2 steps';
+    card.classList.toggle('show', k === 2);
+    if (celebrate && k === 2) rain();
+  }
+  render(false);
+  document.querySelectorAll('[data-step]').forEach(a => a.addEventListener('click', e => {
+    const n = a.dataset.step, r = a.getBoundingClientRect();
+    burst(r.x + r.width / 2, r.y + r.height / 2, 30);
+    say(e.clientX || r.x + r.width / 2, e.clientY || r.y, n === '1' ? 'welcome!' : 'yay!');
     if (!done.includes(n)) done.push(n);
-    try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+    try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (err) {}
+    render(true);
   }));
+})();
 </script>
 </body>
 </html>
