@@ -271,6 +271,15 @@ strong {
 .row-title .dim {
   font-weight: 400;
 }
+.row-list {
+  margin: 4px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+}
+.row-list li::marker {
+  color: var(--faint);
+}
 .row-desc {
   color: var(--dim);
   font-size: 13px;

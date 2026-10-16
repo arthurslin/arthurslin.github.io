@@ -29,8 +29,8 @@ const Home = () => (
           <a href="https://www.scu.edu/business/" target="_blank" rel="noopener">
             Santa Clara University
           </a>
-          , Leavey School of Business. Adding strategy, finance, and product
-          thinking to an engineering background.
+          . Computer science taught me how to build things; the MBA is
+          teaching me how to get everyone else excited about them.
         </p>
       </div>
 
@@ -39,17 +39,17 @@ const Home = () => (
         <p>
           Releasing{" "}
           <a href="#projects">Meow Ball Rush</a>, my solo-built Android game.
-          Roll up a giant ball of cats and take on 12 bosses. It's in{" "}
+          Roll up a giant ball of cats and take on 14 bosses. It's in{" "}
           <a href={links.meowTest}>closed testing</a> on Google Play now.
         </p>
       </div>
 
       <div className="block b-yesterday">
-        <h2>yesterday</h2>
+        <h2>by day</h2>
         <p>
-          CPQ Analyst at Onto Innovation, automating data analysis for field
-          service, R&amp;D, and logistics teams. Before that, Computer Science:
-          Game Design at UC Santa Cruz.
+          CPQ Analyst at Onto Innovation. I manage 90+ products in Oracle CPQ,
+          train the sales teams on it, and automate reporting with Python and
+          Power Automate.
         </p>
       </div>
 

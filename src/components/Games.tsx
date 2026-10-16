@@ -3,7 +3,7 @@ import Juicy from "./Juicy";
 
 const shots = [
   { src: "meowballrush/shot-1.webp", alt: "Rolling a giant ball of cats down a candy-striped road" },
-  { src: "meowballrush/shot-2.webp", alt: "A boss fight" },
+  { src: "meowballrush/shot-2.webp", alt: "Boss fight against Vacuum 9000 in Neon Nekotown" },
   { src: "meowballrush/shot-4.webp", alt: "The rainbow Catnip Frenzy power-up" },
 ];
 
@@ -24,7 +24,7 @@ const Games = () => (
         <p>
           An endless runner where you start as one tiny cat and roll up a
           mountain of them. Pick the right gates, bonk dogs, launch off ramps,
-          and beat 12 bosses across 8 worlds.
+          and beat 14 bosses across 11 worlds.
         </p>
         <p className="dim">
           Designed, coded, and shipped solo. HTML5 Canvas + JavaScript, wrapped

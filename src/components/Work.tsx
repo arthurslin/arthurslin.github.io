@@ -1,4 +1,4 @@
-import { jobs } from "../data";
+import { jobs, schools } from "../data";
 
 const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
@@ -35,27 +35,30 @@ const Work = () => (
             <span className="row-title">
               {j.role} <span className="dim">@ {j.company}</span>
             </span>
-            <span className="row-desc">{j.summary}</span>
+            <span className="row-len">{j.location}</span>
+            {j.highlights.length === 1 ? (
+              <span className="row-desc">{j.highlights[0]}</span>
+            ) : (
+              <ul className="row-desc row-list">
+                {j.highlights.map((h) => (
+                  <li key={h}>{h}</li>
+                ))}
+              </ul>
+            )}
           </span>
         </li>
       ))}
-      <li className="row">
-        <span className="row-when">in progress</span>
-        <span className="row-what">
-          <span className="row-title">
-            MBA <span className="dim">@ Santa Clara University</span>
+      {schools.map((s) => (
+        <li key={s.school} className="row">
+          <span className="row-when">{s.when}</span>
+          <span className="row-what">
+            <span className="row-title">
+              {s.degree} <span className="dim">@ {s.school}</span>
+            </span>
+            {s.note && <span className="row-desc">{s.note}</span>}
           </span>
-          <span className="row-desc">Leavey School of Business.</span>
-        </span>
-      </li>
-      <li className="row">
-        <span className="row-when">graduated</span>
-        <span className="row-what">
-          <span className="row-title">
-            B.S. Computer Science: Game Design <span className="dim">@ UC Santa Cruz</span>
-          </span>
-        </span>
-      </li>
+        </li>
+      ))}
     </ol>
   </section>
 );
