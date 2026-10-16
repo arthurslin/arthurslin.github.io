@@ -149,6 +149,9 @@ const Background = () => {
     let glow = new Float32Array(0);
 
     const draw = (t: number) => {
+      // The window can briefly report a zero size while the page loads;
+      // there's nothing to draw until a resize gives it real dimensions.
+      if (!canvas.width || !canvas.height || !floor.width || !floor.height) return;
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(floor, 0, 0);
@@ -235,6 +238,8 @@ const Background = () => {
     };
 
     const loop = (t: number) => {
+      // Schedule the next frame first, so one bad frame can't stop the animation.
+      raf = requestAnimationFrame(loop);
       if (t - last > interval) {
         const start = performance.now();
         draw(t);
@@ -243,7 +248,6 @@ const Background = () => {
         interval = Math.min(200, Math.max(50, (performance.now() - start) * 5));
         last = t;
       }
-      raf = requestAnimationFrame(loop);
     };
 
     resize();
