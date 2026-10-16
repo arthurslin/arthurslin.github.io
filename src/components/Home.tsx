@@ -1,4 +1,5 @@
 import { links } from "../data";
+import Juicy from "./Juicy";
 
 const Home = () => (
   <section className="home" id="home">
@@ -16,7 +17,9 @@ const Home = () => (
 
       <figure className="block b-photo">
         <h2>me</h2>
-        <img src="arthur.webp" alt="Portrait of Arthur Lin" width="720" height="1254" />
+        <Juicy>
+          <img src="arthur.webp" alt="Portrait of Arthur Lin" width="720" height="1254" />
+        </Juicy>
       </figure>
 
       <div className="block b-today">

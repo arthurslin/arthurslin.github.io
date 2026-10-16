@@ -139,9 +139,11 @@ strong {
   grid-row: 1;
   margin: 0;
 }
+.b-photo .juicy {
+  max-width: 260px;
+}
 .b-photo img {
   width: 100%;
-  max-width: 260px;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: 50% 22%;
@@ -367,13 +369,14 @@ strong {
 .shots {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   gap: 12px;
 }
 .shots img {
   border-radius: 12px;
   border: 1px solid var(--rule);
 }
-.shots img:nth-child(2) {
+.shots > :nth-child(2) {
   margin-top: 40px;
 }
 
@@ -387,6 +390,8 @@ strong {
 .minor img {
   border-radius: 12px;
   border: 1px solid var(--rule);
+}
+.minor-img {
   order: 2;
 }
 .minor p:not(.feature-name) {
@@ -468,6 +473,107 @@ strong {
   color: var(--ink);
 }
 
+/* Juicy photos: tilt toward the cursor, lift and glow on hover, squish on
+   press, and pop in when first shown. Juicy.tsx feeds --rx/--ry (tilt) and
+   --mx/--my (shine position). */
+.juicy {
+  --rx: 0deg;
+  --ry: 0deg;
+  --lift: 0px;
+  --s: 1;
+  position: relative;
+  display: block;
+  border-radius: 12px;
+  transform: perspective(800px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(var(--lift))
+    scale(var(--s));
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+  /* Pop in, then bob gently forever. The bob animates the separate
+     translate/rotate properties so it stacks with the tilt transform. Each
+     photo gets its own --bob-offset so they don't move in sync. */
+  animation:
+    juicy-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) var(--pop-delay, 0s) backwards,
+    juicy-bob 5.5s ease-in-out calc(var(--pop-delay, 0s) + 0.7s - var(--bob-offset, 0s))
+      infinite;
+  cursor: pointer;
+}
+.juicy img {
+  display: block;
+  width: 100%;
+}
+.juicy::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 30%),
+    rgba(255, 255, 255, 0.28),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.juicy:hover {
+  /* Hold still while hovered so the tilt reads cleanly. */
+  animation-play-state: running, paused;
+  --lift: -8px;
+  --s: 1.04;
+  box-shadow:
+    0 22px 44px -14px rgba(123, 60, 247, 0.55),
+    0 0 0 1px var(--button-edge);
+  /* Follow the cursor quickly while hovering; spring back on leave. */
+  transition:
+    transform 0.15s ease-out,
+    box-shadow 0.3s ease;
+}
+.juicy:hover::after {
+  opacity: 1;
+}
+.juicy:active {
+  --s: 0.97;
+  --lift: -2px;
+}
+@keyframes juicy-bob {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  25% {
+    rotate: 0.4deg;
+  }
+  50% {
+    translate: 0 -5px;
+  }
+  75% {
+    rotate: -0.4deg;
+  }
+}
+@keyframes juicy-pop {
+  from {
+    opacity: 0;
+    transform: perspective(800px) translateY(18px) scale(0.88);
+  }
+}
+/* Hold the pop until the section scrolls into view, then stagger it. */
+.reveal:not(.is-visible) .juicy {
+  animation-play-state: paused;
+}
+.shots > :nth-child(2) {
+  --pop-delay: 0.1s;
+  --bob-offset: 1.8s;
+}
+.shots > :nth-child(3) {
+  --pop-delay: 0.2s;
+  --bob-offset: 3.6s;
+}
+.minor-img {
+  --bob-offset: 2.7s;
+}
+
 /* Scroll reveal */
 .reveal {
   opacity: 0;
@@ -482,6 +588,13 @@ strong {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .juicy,
+  .juicy:hover,
+  .juicy:active {
+    transform: none;
+    animation: none;
+    transition: box-shadow 0.3s ease;
   }
   .status-bar span {
     animation: none;
@@ -510,7 +623,7 @@ strong {
     grid-template-columns: 1fr;
     gap: 32px;
   }
-  .minor img {
+  .minor-img {
     order: 0;
   }
   .home {
@@ -549,7 +662,7 @@ strong {
   .b-photo {
     order: -1;
   }
-  .b-photo img {
+  .b-photo .juicy {
     max-width: 200px;
   }
   .pill-nav {

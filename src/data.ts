@@ -35,22 +35,4 @@ export const jobs: Job[] = [
     summary:
       "Designed and shipped software for educational initiatives, including online learning platforms and resource databases, across the full development lifecycle.",
   },
-  {
-    company: "Petco",
-    role: "Sales Associate",
-    start: "Jun 2022",
-    end: "Aug 2022",
-    logo: "petco_logo.svg",
-    summary:
-      "Helped customers find the right products for their pets and kept up with the product catalog to give informed recommendations.",
-  },
-  {
-    company: "Target",
-    role: "Security Specialist",
-    start: "Aug 2021",
-    end: "Dec 2021",
-    logo: "target_logo.svg",
-    summary:
-      "De-escalated high-stress situations, recovered stolen merchandise, and kept team members and guests safe.",
-  },
 ];

@@ -1,4 +1,5 @@
 import { links } from "../data";
+import Juicy from "./Juicy";
 
 const shots = [
   { src: "meowballrush/shot-1.webp", alt: "Rolling a giant ball of cats down a candy-striped road" },
@@ -52,13 +53,17 @@ const Games = () => (
       </div>
       <div className="shots">
         {shots.map((s) => (
-          <img key={s.src} src={s.src} alt={s.alt} width="360" height="640" loading="lazy" />
+          <Juicy key={s.src}>
+            <img src={s.src} alt={s.alt} width="360" height="640" loading="lazy" />
+          </Juicy>
         ))}
       </div>
     </article>
 
     <article className="minor">
-      <img src="gboheader.jpg" alt="" loading="lazy" />
+      <Juicy className="minor-img">
+        <img src="gboheader.jpg" alt="" loading="lazy" />
+      </Juicy>
       <div>
         <h3 className="label">team project · multiplayer</h3>
         <p className="feature-name small">golf bash online</p>
