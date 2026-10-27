@@ -482,6 +482,101 @@ strong {
   color: var(--ink);
 }
 
+/* "more projects" list under the featured game on the home page */
+.label.more-label {
+  margin: 96px 0 0;
+  border-bottom: 0;
+}
+.row-what a.row-title {
+  font-family: var(--display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.row-what a.row-title:hover {
+  text-decoration: underline;
+}
+.more-links {
+  margin-top: 32px;
+}
+
+/* Projects page */
+.projects-head {
+  padding-top: 40px;
+  margin-bottom: 24px;
+}
+.back {
+  font-size: 13px;
+  color: var(--dim);
+}
+.projects-head .name {
+  padding-top: 24px;
+  margin-bottom: 24px;
+}
+.projects-intro {
+  max-width: 52ch;
+}
+.project-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 80px;
+}
+.project {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+  padding: 72px 0;
+  border-top: 1px solid var(--rule);
+  scroll-margin-top: 24px;
+}
+.project:first-child {
+  border-top: 0;
+}
+/* Alternate sides so the page zigzags. */
+.project:nth-child(even) .project-img {
+  order: 2;
+}
+.project:nth-child(even) {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+}
+.project:nth-child(4n + 2) .project-img {
+  --bob-offset: 1.8s;
+}
+.project:nth-child(4n + 3) .project-img {
+  --bob-offset: 3.6s;
+}
+.project:nth-child(4n) .project-img {
+  --bob-offset: 2.7s;
+}
+.project-img img {
+  border-radius: 12px;
+  border: 1px solid var(--rule);
+}
+.project-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.project-copy .label {
+  margin-bottom: 2px;
+}
+.project-copy > p {
+  max-width: 52ch;
+}
+.project-copy .links {
+  margin-top: 8px;
+}
+.project-num {
+  color: var(--pink);
+  margin-right: 12px;
+}
+.project:target .feature-name {
+  color: var(--pink);
+}
+
 /* Juicy photos: tilt toward the cursor, lift and glow on hover, squish on
    press, and pop in when first shown. Juicy.tsx feeds --rx/--ry (tilt) and
    --mx/--my (shine position). */
@@ -628,9 +723,14 @@ strong {
     grid-row: auto;
   }
   .feature,
-  .minor {
+  .minor,
+  .project,
+  .project:nth-child(even) {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+  .project:nth-child(even) .project-img {
+    order: 0;
   }
   .minor-img {
     order: 0;
@@ -665,6 +765,9 @@ strong {
   .row {
     grid-template-columns: 1fr;
     gap: 6px;
+  }
+  .project {
+    padding: 48px 0;
   }
   /* Lead with the face: photo above "about me", sized so both fit on the
      first screen. */

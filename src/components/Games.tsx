@@ -1,4 +1,4 @@
-import { links } from "../data";
+import { links, projects } from "../data";
 import Juicy from "./Juicy";
 
 const shots = [
@@ -60,24 +60,25 @@ const Games = () => (
       </div>
     </article>
 
-    <article className="minor">
-      <Juicy className="minor-img">
-        <img src="gboheader.jpg" alt="" loading="lazy" />
-      </Juicy>
-      <div>
-        <h3 className="label">team project · multiplayer</h3>
-        <p className="feature-name small">golf bash online</p>
-        <p>
-          A silly online golf party game. Grab your clubs and battle your
-          friends through a round of golf.
-        </p>
-        <p className="links">
-          <a href="https://aguizaro.github.io/GolfSite/" target="_blank" rel="noopener">
-            visit site →
-          </a>
-        </p>
-      </div>
-    </article>
+    <h3 className="label more-label">more projects</h3>
+    <ul className="rows">
+      {projects.slice(1).map((p) => (
+        <li key={p.slug} className="row">
+          <span className="row-when">{p.label}</span>
+          <span className="row-what">
+            <a className="row-title" href={`/projects/#${p.slug}`}>
+              {p.name}
+            </a>
+            <span className="row-desc">{p.blurb}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+    <p className="links more-links">
+      <a className="cta" href="/projects/">
+        see all projects →
+      </a>
+    </p>
   </section>
 );
 

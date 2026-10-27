@@ -8,13 +8,16 @@ const items = [
   { id: "contact", label: "contact" },
 ];
 
-// Floating nav that highlights whichever section is in view.
-const PillNav = () => {
-  const [active, setActive] = useState("home");
+// Floating nav that highlights whichever section is in view. On another page
+// (like /projects/), pass `page`: that item stays highlighted and the others
+// link back to their sections on the home page.
+const PillNav = ({ page }: { page?: string }) => {
+  const [active, setActive] = useState(page ?? "home");
   // Near the top of the page; the CSS uses this to hide the menu on phones.
-  const [atTop, setAtTop] = useState(true);
+  const [atTop, setAtTop] = useState(!page);
 
   useEffect(() => {
+    if (page) return;
     const els = items
       .map(({ id }) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
@@ -46,14 +49,14 @@ const PillNav = () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [page]);
 
   return (
     <nav className={atTop ? "pill-nav tucked" : "pill-nav"} aria-label="Sections">
       {items.map(({ id, label }) => (
         <a
           key={id}
-          href={`#${id}`}
+          href={page ? (id === page ? `/${id}/` : `/#${id}`) : `#${id}`}
           className={active === id ? "on" : undefined}
           aria-current={active === id ? "true" : undefined}
         >
