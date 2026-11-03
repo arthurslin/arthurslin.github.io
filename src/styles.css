@@ -216,6 +216,14 @@ strong {
     width: 70%;
   }
 }
+.status-dot {
+  justify-self: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--pink);
+  box-shadow: 0 0 0 5px rgba(255, 111, 174, 0.25);
+}
 .status:hover .status-title {
   text-decoration: underline;
   text-underline-offset: 3px;
