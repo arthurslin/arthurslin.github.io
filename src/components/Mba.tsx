@@ -1,9 +1,9 @@
 import { mbaProjects } from "../data";
 import Juicy from "./Juicy";
 
-// The school card fills the first slot, so five projects keep the grid to
-// two rows; the rest are on /mba/.
-const SHOWN = 5;
+// The school card plus the newest two projects fill one row, which keeps the
+// section short; the rest are on /mba/.
+const SHOWN = 2;
 
 const Mba = () => (
   <section className="page" id="mba" data-reveal>
