@@ -78,7 +78,6 @@ const Games = () => (
       <a className="cta" href="/projects/">
         see all projects →
       </a>
-      <a href="/mba/">mba class projects</a>
     </p>
   </section>
 );

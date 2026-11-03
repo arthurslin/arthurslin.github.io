@@ -13,24 +13,18 @@ const external = (href: string) =>
     ? { target: "_blank", rel: "noopener" }
     : {};
 
-const projectsIntro = (
-  <>
-    Games and tools I've designed and built, mostly solo. Everything here is
-    live, so click through and try it. Class work from my MBA is on{" "}
-    <a href="/mba/">mba class projects</a>.
-  </>
-);
-
 // /projects/ (and /mba/, with its own list): every project, alternating
 // image sides, in the home page's style.
 function ProjectsPage({
   title = "projects",
-  intro = projectsIntro,
+  intro = "Games and tools I've designed and built, mostly solo. Everything here is live, so click through and try it.",
   items = projects,
+  nav = "projects",
 }: {
   title?: string;
   intro?: ReactNode;
   items?: Project[];
+  nav?: string;
 }) {
   useReveal();
   // The page renders after load, so the browser can't jump to a #project
@@ -78,7 +72,7 @@ function ProjectsPage({
         </ol>
       </main>
       <Footer />
-      <PillNav page="projects" />
+      <PillNav page={nav} />
     </>
   );
 }
