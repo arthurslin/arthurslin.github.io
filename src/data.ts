@@ -142,3 +142,48 @@ export const projects: Project[] = [
     links: [{ label: "visit site →", href: "https://aguizaro.github.io/GolfSite/", primary: true }],
   },
 ];
+
+// Class work from the Santa Clara MBA, newest first; shown on /mba/.
+export const mbaProjects: Project[] = [
+  {
+    slug: "stylemod",
+    name: "stylemod outfit builder",
+    label: "mba · marketing case study · 2026",
+    blurb:
+      "A concept mockup for a case study on responsible Gen AI personalization. Five quick questions (gender, age range, color palette, style and accessory) return three quarter-zip outfits on a dressed dummy.",
+    detail:
+      "Recommendations use only the quiz answers: no browsing history, no inferred sensitive traits. A rules-based mock engine marks where a real model would plug in, and AI-generated garments are tinted in the browser to each listed color.",
+    image: "/projects/stylemod.webp",
+    imageAlt: "StyleMod home screen listing the five quiz questions",
+    links: [
+      { label: "try it →", href: "https://arthurslin.github.io/StyleMod-demo/", primary: true },
+      { label: "source", href: "https://github.com/arthurslin/StyleMod-demo" },
+    ],
+  },
+  {
+    slug: "stats-quiz",
+    name: "stats final practice quiz",
+    label: "mba · statistics · 2026",
+    blurb:
+      "A practice final for my business statistics class, built to match the real exam: 25 multiple choice questions plus three business applications on multiple regression, simple regression and two populations.",
+    detail:
+      "Four full mock exams, or drill one part or topic at a time. Every question is read from Excel Data Analysis output, the way the exam asks for it, using problems from the assigned Keller 12e set.",
+    image: "/projects/stats-quiz.webp",
+    imageAlt: "Stats Final Practice Quiz start screen with mock exam and practice options",
+    links: [{ label: "take the quiz →", href: "/stats-quiz/", primary: true }],
+  },
+  {
+    slug: "buena-vida",
+    name: "buena vida redesign",
+    label: "mba · website concept · 2026",
+    blurb:
+      "A concept redesign of the online store for Buena Vida Specialty Coffee: a home page, a coffee-finder quiz, a Coffee 101 learning page and a product page.",
+    detail: "A private preview, not the official store. The site asks for a password.",
+    image: "/projects/buenavida.webp",
+    imageAlt: "Buena Vida concept preview's password screen",
+    links: [
+      { label: "view concept →", href: "https://arthurslin.github.io/buenavida-concept/", primary: true },
+      { label: "source", href: "https://github.com/arthurslin/buenavida-concept" },
+    ],
+  },
+];
