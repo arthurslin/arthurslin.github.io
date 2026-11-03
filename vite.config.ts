@@ -11,6 +11,7 @@ export default defineConfig({
       input: {
         main: "index.html",
         projects: "projects/index.html",
+        mba: "mba/index.html",
       },
     },
   },

@@ -4,7 +4,8 @@ import PillNav from "./components/PillNav";
 import Footer from "./components/Footer";
 import Juicy from "./components/Juicy";
 import { useReveal } from "./components/useReveal";
-import { projects } from "./data";
+import { projects, type Project } from "./data";
+import type { ReactNode } from "react";
 
 // Off-site links open in a new tab; links within this site don't.
 const external = (href: string) =>
@@ -12,8 +13,25 @@ const external = (href: string) =>
     ? { target: "_blank", rel: "noopener" }
     : {};
 
-// /projects/: every project, alternating image sides, in the home page's style.
-function ProjectsPage() {
+const projectsIntro = (
+  <>
+    Games and tools I've designed and built, mostly solo. Everything here is
+    live, so click through and try it. Class work from my MBA is on{" "}
+    <a href="/mba/">mba class projects</a>.
+  </>
+);
+
+// /projects/ (and /mba/, with its own list): every project, alternating
+// image sides, in the home page's style.
+function ProjectsPage({
+  title = "projects",
+  intro = projectsIntro,
+  items = projects,
+}: {
+  title?: string;
+  intro?: ReactNode;
+  items?: Project[];
+}) {
   useReveal();
   // The page renders after load, so the browser can't jump to a #project
   // link from the home page by itself.
@@ -29,15 +47,12 @@ function ProjectsPage() {
           <a className="back" href="/">
             ← arthur lin
           </a>
-          <h1 className="name">projects</h1>
-          <p className="dim projects-intro">
-            Games and tools I've designed and built, mostly solo. Everything here
-            is live, so click through and try it.
-          </p>
+          <h1 className="name">{title}</h1>
+          <p className="dim projects-intro">{intro}</p>
         </header>
 
         <ol className="project-list">
-          {projects.map((p, i) => (
+          {items.map((p, i) => (
             <li key={p.slug} id={p.slug} className="project" data-reveal>
               <Juicy className="project-img">
                 <img src={p.image} alt={p.imageAlt} loading={i < 2 ? "eager" : "lazy"} />

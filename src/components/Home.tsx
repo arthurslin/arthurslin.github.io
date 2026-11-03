@@ -30,7 +30,8 @@ const Home = () => (
             Santa Clara University
           </a>
           . Computer science taught me how to build things; the MBA is
-          teaching me how to get everyone else excited about them.
+          teaching me how to get everyone else excited about them. See my{" "}
+          <a href="/mba/">class projects</a>.
         </p>
       </div>
 
