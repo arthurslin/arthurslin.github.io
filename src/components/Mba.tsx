@@ -14,8 +14,7 @@ const Mba = () => (
         <h3 className="label">santa clara university · mba · in progress</h3>
         <p className="feature-name">leavey school of business</p>
         <p className="dim">
-          Class projects from my MBA: case study presentations, product
-          concepts and homework, each with a working demo.
+          Projects and presentations from my MBA classes.
         </p>
         <p className="mba-count">
           <strong>{mbaProjects.length}</strong> class projects so far
