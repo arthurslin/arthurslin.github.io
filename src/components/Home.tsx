@@ -14,6 +14,13 @@ const Home = () => (
           and automating what's left, so sales, engineering and operations stay
           in sync.
         </p>
+        <a className="status open-to" href={`mailto:${links.email}`}>
+          <span className="status-dot" aria-hidden="true" />
+          <span className="status-text">
+            <span className="status-title">open to new roles</span>
+            <span className="status-sub">business systems analyst · bay area</span>
+          </span>
+        </a>
       </div>
 
       <figure className="block b-photo">
@@ -54,12 +61,15 @@ const Home = () => (
       </div>
 
       <div className="block b-bg">
-        <h2>status</h2>
-        <a className="status" href={`mailto:${links.email}`}>
-          <span className="status-dot" aria-hidden="true" />
+        <h2>in the background</h2>
+        <a className="status" href={links.meowTest}>
+          <img src="meowballrush/icon-192.webp" alt="" width="36" height="36" />
           <span className="status-text">
-            <span className="status-title">open to new roles</span>
-            <span className="status-sub">business systems analyst · bay area</span>
+            <span className="status-title">meow ball rush</span>
+            <span className="status-sub">closed testing · needs testers</span>
+          </span>
+          <span className="status-bar" aria-hidden="true">
+            <span />
           </span>
         </a>
       </div>
