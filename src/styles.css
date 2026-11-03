@@ -130,9 +130,13 @@ strong {
   min-height: 100vh;
   padding-bottom: 120px;
 }
+/* About me spans the empty middle column so the longer intro stays short. */
 .b-tldr {
-  grid-column: 1;
+  grid-column: 1 / 3;
   grid-row: 1;
+}
+.b-tldr p {
+  max-width: 62ch;
 }
 .b-photo {
   grid-column: 3;

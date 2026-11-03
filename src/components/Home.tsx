@@ -9,10 +9,17 @@ const Home = () => (
       <div className="block b-tldr">
         <h2>about me</h2>
         <p>
-          Business systems analyst. I turn manual, messy processes into
-          systems that work: gathering requirements, configuring the platform,
-          and automating what's left, so sales, engineering and operations stay
-          in sync.
+          Hi, I’m Arthur 🙂. By day, I’m a CPQ Analyst in the semiconductor
+          industry. By night, I’m working toward my MBA at Santa Clara
+          University. My background in Computer Science and Game Design means I
+          see almost everything as a system, and I love figuring out how the
+          pieces fit together, whether it’s a company’s business model or an
+          enterprise software configuration. I do my best work with a full
+          plate and something new to learn, which is why balancing a tech
+          career with evening classes feels more energizing than exhausting.
+          When I unplug, you’ll find me resetting over a game of chess,
+          exploring somewhere new, or swapping stories with someone I’ve just
+          met.
         </p>
         <a className="status open-to" href={`mailto:${links.email}`}>
           <span className="status-dot" aria-hidden="true" />
