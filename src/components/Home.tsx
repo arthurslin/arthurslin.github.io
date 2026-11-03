@@ -12,8 +12,9 @@ const Home = () => (
           I’m Arthur, and I work as a CPQ Analyst in the semiconductor industry
           while getting my MBA at Santa Clara University at night. I studied
           computer science and game design, so I like figuring out how things
-          work and fit together. Outside of work, I play chess, check out new
-          places, and love meeting people and hearing their stories.
+          work and fit together. Outside of work, I like playing chess and
+          checking out cool places. I’m a lifelong learner, so I also love
+          meeting new people and hearing their stories 🙂
         </p>
         <a className="status open-to" href={`mailto:${links.email}`}>
           <span className="status-dot" aria-hidden="true" />
