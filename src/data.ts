@@ -161,6 +161,18 @@ export const mbaProjects: Project[] = [
     ],
   },
   {
+    slug: "stats-quiz",
+    name: "stats final practice quiz",
+    label: "mba · statistics · 2026",
+    blurb:
+      "A practice final for my business statistics class, built to match the real exam: 25 multiple choice questions plus three business applications on multiple regression, simple regression and two populations.",
+    detail:
+      "Four full mock exams, or drill one part or topic at a time. Every question is read from Excel Data Analysis output, the way the exam asks for it, using problems from the assigned Keller 12e set.",
+    image: "/projects/stats-quiz.webp",
+    imageAlt: "Stats Final Practice Quiz start screen with mock exam and practice options",
+    links: [{ label: "take the quiz →", href: "/stats-quiz/", primary: true }],
+  },
+  {
     slug: "buena-vida",
     name: "buena vida redesign",
     label: "mba · website concept · 2026",
