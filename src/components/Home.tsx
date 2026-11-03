@@ -20,7 +20,7 @@ const Home = () => (
           <span className="status-dot" aria-hidden="true" />
           <span className="status-text">
             <span className="status-title">open to new roles</span>
-            <span className="status-sub">business systems analyst · bay area</span>
+            <span className="status-sub">bay area</span>
           </span>
         </a>
       </div>
