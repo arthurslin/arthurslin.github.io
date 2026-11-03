@@ -5,11 +5,9 @@ const Contact = () => (
     <h2 className="page-title">contact</h2>
     <div className="grid">
       <div className="block">
-        <h2>let's talk</h2>
+        <h2>say hi</h2>
         <p>
-          I'm looking for business systems analyst roles where I can connect
-          what the business needs to the systems behind it. Email is the best
-          way to reach me.
+          Always up for a good conversation. Email is the best way to reach me.
         </p>
         <p className="email">
           <a href={`mailto:${links.email}`}>{links.email}</a>
