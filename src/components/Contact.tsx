@@ -7,8 +7,7 @@ const Contact = () => (
       <div className="block">
         <h2>say hi</h2>
         <p>
-          Always happy to talk product, games, tech strategy, or cats. Email is
-          the best way to reach me.
+          Always up for a good conversation. Email is the best way to reach me.
         </p>
         <p className="email">
           <a href={`mailto:${links.email}`}>{links.email}</a>

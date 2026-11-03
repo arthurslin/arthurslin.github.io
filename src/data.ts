@@ -8,7 +8,7 @@ export const links = {
   meowPrivacy: "https://arthurslin.github.io/meow-ball-rush-privacy/",
 };
 
-// Wording below follows the LinkedIn profile.
+// Wording below follows the résumé (Business Systems Analyst, Nov 2026).
 
 export interface Job {
   company: string;
@@ -26,21 +26,21 @@ export const jobs: Job[] = [
     start: "May 2024",
     location: "Milpitas, CA · On-site",
     highlights: [
-      "Manage product configuration for 90+ models in Oracle CPQ, so sales quotes match customer specifications.",
-      "Built an AI-powered Power Automate agent that automates executive sales-demand reporting.",
-      "Consolidated data across multiple ERP systems with Python and Pandas, making sales and operations reports more reliable.",
-      "Train the sales teams on the platform, and built the product team's JIRA setup from scratch.",
-      "Liaison between business stakeholders and offshore developers, keeping communication clear and projects on schedule.",
+      "Own product configuration for 99% of the catalog (90+ models): gather requirements, prioritize changes, and work with engineering to ship updates so sales can quote to exact customer specs.",
+      "Built a Power Automate and AI Builder workflow that takes in CPQ issues, suggests the fix and routes approvals. In pilot, it saves about 2 hours a day of manual handoffs.",
+      "Consolidated data across multiple ERP systems with Python and Pandas, cutting duplicate work and making sales and operations reports more reliable.",
+      "The bridge between business stakeholders and offshore developers: I write the specs and keep model delivery on track.",
+      "Placed 2nd of 11 in a company-wide automation awards.",
     ],
   },
   {
     company: "Bridging Tech",
-    role: "Software Engineer Intern",
-    start: "Dec 2023",
-    end: "May 2024",
-    location: "Remote",
+    role: "Software Engineering Intern",
+    start: "Dec 2022",
+    end: "May 2023",
+    location: "Remote · nonprofit",
     highlights: [
-      "Front-end development in React.js and TypeScript, working with the UI/UX team on interactive elements that improved user engagement.",
+      "Built React and TypeScript components with the UI/UX team for a nonprofit closing the digital divide for students in underserved communities.",
     ],
   },
 ];
@@ -134,12 +134,15 @@ export const projects: Project[] = [
   {
     slug: "golf-bash-online",
     name: "golf bash online",
-    label: "team project · multiplayer",
+    label: "team lead · multiplayer · steam",
     blurb:
-      "A silly online golf party game. Grab your clubs and battle your friends through a round of golf.",
+      "An online multiplayer golf party game. I led scope and team coordination, grew the team, built core features in Unity and C#, and we shipped a playable build to Steam.",
     image: "/gboheader.jpg",
     imageAlt: "Golf Bash Online header art",
-    links: [{ label: "visit site →", href: "https://aguizaro.github.io/GolfSite/", primary: true }],
+    links: [
+      { label: "on steam →", href: "https://store.steampowered.com/app/2976320/Golf_Bash_Online", primary: true },
+      { label: "site", href: "https://aguizaro.github.io/GolfSite/" },
+    ],
   },
 ];
 

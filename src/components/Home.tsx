@@ -9,10 +9,20 @@ const Home = () => (
       <div className="block b-tldr">
         <h2>about me</h2>
         <p>
-          I work where engineering meets business: configuring how products
-          get quoted and sold by day, shipping my own games by night, and
-          studying strategy at Santa Clara.
+          I’m Arthur, and I work as a CPQ Analyst in the semiconductor industry
+          while getting my MBA at Santa Clara University at night. I studied
+          computer science and game design, so I like figuring out how things
+          work and fit together. Outside of work, I like playing chess and
+          checking out cool places. I’m a lifelong learner, so I also love
+          meeting new people and hearing their stories 🙂
         </p>
+        <a className="status open-to" href={`mailto:${links.email}`}>
+          <span className="status-dot" aria-hidden="true" />
+          <span className="status-text">
+            <span className="status-title">open to new roles</span>
+            <span className="status-sub">bay area</span>
+          </span>
+        </a>
       </div>
 
       <figure className="block b-photo">
@@ -25,31 +35,30 @@ const Home = () => (
       <div className="block b-today">
         <h2>today</h2>
         <p>
-          Earning my <strong>MBA</strong> at{" "}
+          Earning my <strong>MBA</strong> at the Leavey School of Business,{" "}
           <a href="https://www.scu.edu/business/" target="_blank" rel="noopener">
             Santa Clara University
           </a>
-          . Computer science taught me how to build things; the MBA is
-          teaching me how to get everyone else excited about them.
+          . A computer science degree taught me how systems work; the MBA is
+          teaching me how the business runs on them.
         </p>
       </div>
 
       <div className="block b-shipping">
-        <h2>shipping</h2>
+        <h2>recent win</h2>
         <p>
-          Releasing{" "}
-          <a href="#projects">Meow Ball Rush</a>, my solo-built Android game.
-          Roll up a giant ball of cats and take on 14 bosses. It's in{" "}
-          <a href={links.meowTest}>closed testing</a> on Google Play now.
+          Built a Power Automate and AI Builder workflow that takes in CPQ
+          issues, suggests the fix and routes approvals. In pilot, it already
+          saves about <strong>2 hours a day</strong> of manual handoffs.
         </p>
       </div>
 
       <div className="block b-yesterday">
         <h2>by day</h2>
         <p>
-          CPQ Analyst at Onto Innovation. I manage 90+ products in Oracle CPQ,
-          train the sales teams on it, and automate reporting with Python and
-          Power Automate.
+          CPQ Analyst at Onto Innovation, a global semiconductor company. I own
+          configuration for 99% of a 90+ model catalog and translate between
+          sales, engineering and offshore developers.
         </p>
       </div>
 
