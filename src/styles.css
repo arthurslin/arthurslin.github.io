@@ -398,6 +398,34 @@ strong {
   transform: translateX(-50%) scale(1.3);
   transition-delay: 0s;
 }
+/* Once it has filled in, closed testing's progress inches up and down, like
+   the "in the background" bar. */
+.is-visible .launch li.is-current::after {
+  animation:
+    launch-shine 2.2s linear infinite,
+    launch-inch-fill 2.4s ease-in-out 1.4s infinite alternate;
+}
+.is-visible .launch li.is-current::before {
+  animation:
+    launch-ping 1.8s ease-out 1.6s infinite,
+    launch-inch-dot 2.4s ease-in-out 1.4s infinite alternate;
+}
+@keyframes launch-inch-fill {
+  from {
+    width: 45%;
+  }
+  to {
+    width: 62%;
+  }
+}
+@keyframes launch-inch-dot {
+  from {
+    left: 45%;
+  }
+  to {
+    left: 62%;
+  }
+}
 .reveal:not(.is-visible) .launch li::after {
   width: 0;
 }
